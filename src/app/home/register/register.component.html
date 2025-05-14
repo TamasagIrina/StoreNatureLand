@@ -1,0 +1,76 @@
+<div class="login-page">
+    <div class="container">
+      <h1 style="color:  #e26868ba;">Register</h1>
+      <form [formGroup]="registerForm" class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>First Name</mat-label>
+            <input type="name" matInput  formControlName="firstNameFormControl" placeholder="Ex. Ion">
+
+            
+            <mat-icon matPrefix>person</mat-icon>
+
+            
+            @if (registerForm.get('firstNameFormControl')?.invalid && !registerForm.get('firstNameFormControl')?.touched) {
+              <mat-error>Please enter a name</mat-error>
+            }
+            @if (registerForm.get('firstNameFormControl')?.invalid) {
+              <mat-error>Your first name is <strong>required</strong></mat-error>
+            }
+        
+          
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Last name</mat-label>
+            <input type="name" matInput formControlName="lastNameFormControl" placeholder="Ex. Pop">
+
+            <mat-icon matPrefix>person</mat-icon>
+
+            @if (registerForm.get('lastNameFormControl')?.invalid && !registerForm.get('lastNameFormControl')?.touched) {
+              <mat-error>Please enter a name</mat-error>
+            }
+            @if (registerForm.get('lastNameFormControl')?.invalid) {
+              <mat-error>Your last name is <strong>required</strong></mat-error>
+            }
+        
+          
+          </mat-form-field>
+
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="emailFormControl" placeholder="Ex. pat@example.com">
+
+          <mat-icon matPrefix>email</mat-icon>
+
+          @if (registerForm.get('emailFormControl')?.invalid && !registerForm.get('emailFormControl')?.touched) {
+            <mat-error>Please enter a valid email</mat-error>
+          }
+          @if (registerForm.get('emailFormControl')?.invalid) {
+            <mat-error>Your email is <strong>required</strong></mat-error>
+          }
+      
+      
+        
+        </mat-form-field>
+      
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="passwordFormControl" placeholder="******">
+
+          <mat-icon matPrefix>lock</mat-icon>
+
+          @if (registerForm.get('passwordFormControl')?.invalid && !registerForm.get('passwordFormControl')?.touched) {
+            <mat-error>Please enter a valid password</mat-error>
+          }
+          @if (registerForm.get('passwordFormControl')?.invalid) {
+            <mat-error>Your password is <strong>required</strong></mat-error>
+          }
+
+        </mat-form-field>
+      </form>
+
+      <button class="auth-buttons" (click)=" registerButton()" [disabled]="registerForm.invalid">Register</button>  
+      
+    </div>
+  </div>

@@ -1,0 +1,41 @@
+<div class="login-page">
+  <div class="container">
+    <h1 style="color:  #e26868ba;">Login</h1>
+    <form [formGroup]="loginForm" class="form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="emailFormControl"  placeholder="Ex. pat@example.com">
+        
+        <mat-icon matPrefix>email</mat-icon>
+
+        @if (loginForm.get('emailFormControl')?.invalid && !loginForm.get('emailFormControl')?.touched) {
+          <mat-error>Please enter a valid email address</mat-error>
+        }
+        @if (loginForm.get('emailFormControl')?.invalid) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        }
+
+      </mat-form-field>
+    
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        
+        <input type="password" matInput formControlName="passwordFormControl" placeholder="******">
+
+        <mat-icon matPrefix>lock</mat-icon>
+
+        @if (loginForm.get('passwordFormControl')?.invalid && !loginForm.get('passwordFormControl')?.touched) {
+          <mat-error>Please enter a password</mat-error>
+        }
+        @if (loginForm.get('passwordFormControl')?.touched) {
+          <mat-error>Password is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+    </form>
+
+    <div class="auth-buttons">
+      <button (click)="loginButton()" [disabled]="loginForm.invalid">Login</button>  
+      <button (click)="redirectToRegister()">Register</button>  
+    </div>
+  </div>
+</div>

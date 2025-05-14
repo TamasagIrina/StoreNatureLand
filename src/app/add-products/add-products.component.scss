@@ -1,0 +1,30 @@
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #490015; 
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 2rem;
+    background-color:#9e002d;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .form-container label {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+  }

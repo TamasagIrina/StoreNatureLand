@@ -1,0 +1,39 @@
+.sidenav-container {
+  height: 100%;
+  
+}
+
+.sidenav {
+  width: 200px;
+  word-spacing: 10px;
+  border-radius: 0px;
+  border-right:2px solid ;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+  background-color: #9e002d;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-radius: 0px;
+  background-color: #9e002d;
+}
+
+.cartButton{
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-45%);
+
+  mat-icon {
+    font-size: 30px;
+    color: white;
+  }
+
+}

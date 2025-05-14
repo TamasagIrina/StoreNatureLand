@@ -1,0 +1,111 @@
+  <div class="hero">
+   
+    <div class="hero-content">
+        <h1>
+            NatureLand
+            <br>
+            <mat-icon  aria-label="Shopping cart" fontIcon="shopping_cart"></mat-icon>
+        </h1>
+      <p>Thank you for your purchase!</p>
+    </div>
+  
+  </div>
+
+
+<mat-stepper linear #stepper>
+  <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+
+   
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstNameCtrl" placeholder="First name" required>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastNameCtrl" placeholder="Last name" required>
+      </mat-form-field>
+      
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fill out your address and phone number</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="addressCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneCtrl" placeholder="07XXXXXXXX" required>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Payment</ng-template>
+    <p>Choose payment method</p>
+    <div class="payment-section" [formGroup]="paymentForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Choose payment method</mat-label>
+    <mat-select formControlName="method" (selectionChange)="onMethodChange()">
+      <mat-option value="cash">Cash</mat-option>
+      <mat-option value="card">Card</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div  class="card-details">
+    <mat-form-field appearance="outline" *ngIf="showCardFields">
+       <mat-icon matPrefix>person</mat-icon>
+      <mat-label>Cardholder Name</mat-label>
+      <input matInput formControlName="cardName" placeholder="Ex. John Doe" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="showCardFields">
+      
+      <mat-icon matPrefix>credit_card</mat-icon>
+      <mat-label>Card Number</mat-label>
+      <input matInput formControlName="cardNumber" maxlength="16" placeholder="1234 5678 9012 3456" />
+    </mat-form-field>
+
+    <div class="card-row">
+      <mat-form-field appearance="outline" *ngIf="showCardFields">
+       <mat-icon matPrefix>event</mat-icon>
+        <mat-label>Expiration</mat-label>
+        <input matInput formControlName="expiry" placeholder="MM/YY" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="showCardFields">
+        <mat-icon matPrefix>lock</mat-icon>
+        <mat-label>CVV</mat-label>
+        <input matInput formControlName="cvv" maxlength="3" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="payment-buttons">
+     <button mat-button (click)="stepper.reset()">Reset</button>
+    <button
+      mat-button
+      color="primary"
+      [disabled]="!canPurchase"
+      (click)="purchase()"
+    >
+      Purchase
+    </button>
+  </div>
+  </div>
+    
+  </mat-step>
+</mat-stepper>

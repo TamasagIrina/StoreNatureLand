@@ -1,0 +1,37 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar style="color: white;">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a  mat-list-item href="/mainPage/store"><mat-icon matPrefix>store</mat-icon> Store</a>
+      <a  mat-list-item href="/mainPage/account"><mat-icon matPrefix>persone</mat-icon> Account</a>
+      <a  mat-list-item href="/mainPage/aboutUs"><mat-icon matPrefix>star</mat-icon> AboutUs</a>
+      <a  mat-list-item href="/mainPage/contact"><mat-icon matPrefix>phone</mat-icon> Contact</a>
+      <a  *ngIf="isAdmin()" mat-list-item href="/mainPage/add"><mat-icon matPrefix>add</mat-icon> Add Products</a>
+      <a  *ngIf="isAdmin()" mat-list-item href="/mainPage/getMessages"><mat-icon matPrefix>messages</mat-icon> Messages</a>
+      <a  *ngIf="isAdmin()" mat-list-item href="/mainPage/orders"><mat-icon matPrefix>list</mat-icon> Orders</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span style="color: white;">Nature Land Store</span>
+      <button (click)="cartButton()"  mat-icon-button matBadge="7" matBadgePosition="before" matBadgeColor="accent" class="cartButton"><mat-icon  aria-label="Shopping cart" fontIcon="shopping_cart"></mat-icon></button>
+    </mat-toolbar>
+   
+    <router-outlet>
+    
+    </router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
