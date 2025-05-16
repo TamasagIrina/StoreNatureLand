@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import { Type } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
+import { product } from '../interfaces/product.interface';
+import { ProductCardComponent } from "./product-card/product-card.component";
+import { BehaviorSubject } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 
 export interface StoreComponent {
@@ -14,19 +21,44 @@ export interface StoreComponent {
 
 @Component({
   selector: 'app-store',
-  imports: [MatCardModule, MatButtonModule, MatIconModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, ProductCardComponent,AsyncPipe, FormsModule],
   templateUrl: './store.component.html',
   styleUrl: './store.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoreComponent {
 
-constructor(readonly router: Router){
+ copyProducts: product[]=[]
 
-}
+ protected sentProductsSubject = new BehaviorSubject<product[]>([]);
+ sentProducts$ = this.sentProductsSubject.asObservable();
+  searchValue: any;
 
-  seeMoreButton(){
-    this.router.navigateByUrl("/mainPage/details");
+
+  constructor(readonly router: Router, private databese: DataService){
+
   }
+  ngOnInit(){
+    this.databese.getProducts().subscribe({
+      next  : (response)=>{
+
+        this.sentProductsSubject.next(response);
+  
+      }
+    });
+
+   
+   this.sentProductsSubject.subscribe(products => {
+     this.copyProducts= products;
+
+    });
+
+
+  }
+
+ filterValues(){
+      this.copyProducts= this.copyProducts.filter((products) => 
+      products.productName.toUpperCase().includes(this.searchValue.toUpperCase()))
+    }
 
 }

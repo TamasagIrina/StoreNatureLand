@@ -4,6 +4,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { HomeComponent } from '../home.component';
+import { User } from '../../interfaces/user.interface';
+import { DataService } from '../../services/data.service';
 
 
 @Component({
@@ -13,22 +15,30 @@ import { HomeComponent } from '../home.component';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-
+  constructor(private database: DataService){
+  }
   registerForm= new FormGroup({
-    firstNameFormControl: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    lastNameFormControl: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    emailFormControl: new FormControl('', [Validators.required, Validators.email, Validators.minLength(9)]),
-    passwordFormControl: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    email: new FormControl('', [Validators.required, Validators.email, Validators.minLength(9)]),
+    first_name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    last_name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   })
 
-
-
- 
-
   registerButton(){
-  
-      alert("Accont exit! Go login!");
-    
+    this.database.addUser(this.registerForm.value as Omit<User,'id,role'>)
+    .subscribe({
+      next: (res) => {
+        console.log('User added:', res);
+        alert('Account created! Please log in.');
+      },
+      error: (err) => {
+        console.error('Error:', err);
+        alert('Registration failed!');
+      }
+    });
+
+    console.log(this.registerForm.value)
+   
   }
 }
 

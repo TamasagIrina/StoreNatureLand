@@ -6,11 +6,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { RouterOutlet } from '@angular/router';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
+import { FormsModule } from '@angular/forms';
+import { F } from '@angular/cdk/keycodes';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-nav',
@@ -26,12 +30,19 @@ import { Router } from '@angular/router';
     RouterOutlet,
     MatIconModule,
     MatBadgeModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class NavComponent {
   private breakpointObserver = inject(BreakpointObserver);
-  constructor(private router: Router){}
+  amount: any = 0;
+  private roleSubject = new BehaviorSubject<string>('');
+  role$ = this.roleSubject.asObservable();
+
+  constructor(private router: Router, private database: DataService) {
+    this.getData()
+   }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -39,11 +50,26 @@ export class NavComponent {
       shareReplay()
     );
 
-  cartButton(){
+  cartButton() {
     this.router.navigateByUrl("/mainPage/cart");
   }
 
-  isAdmin():boolean{
-    return true;
+
+  getData() {
+    this.database.getRole(localStorage.getItem('email') || '').subscribe({
+      next: (response) => {
+
+        this.roleSubject.next(response)
+
+      }
+
+    });
   }
+
+  isAdmin(): boolean {
+    
+    return this.roleSubject.getValue() === 'ADMIN';
+  }
+
+
 }

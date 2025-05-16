@@ -1,0 +1,38 @@
+.cart-row {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ 
+  td {
+    vertical-align: middle;
+    padding: 20px 36px;
+    text-align: center;
+  }
+
+  td:first-child {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: start;
+  }
+
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  input {
+    width: 70px;
+    text-align: center;
+    padding: 5px;
+  }
+
+  .delete-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+}

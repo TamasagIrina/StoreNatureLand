@@ -1,8 +1,12 @@
 import { product } from "./product.interface"
 
 export interface cartProduct {
-    id: number,
-    product: product[],
+    cartId: number,
+    productName: string,
+    productBrand: string,
+    productImg: string,
+    productDescription:string,
+    productPrice: number,
     personID: number,
     amount: number
 }

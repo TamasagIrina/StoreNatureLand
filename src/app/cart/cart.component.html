@@ -17,28 +17,25 @@
       <table class="cart-table">
         <thead>
           <tr>
-            <th>ITEM NAME</th>
-            <th>QUANTITY</th>
-            <th>PRICE</th>
             <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          
           </tr>
         </thead>
         <tbody id="cart-body">
-          
-          <tr class="cart-row">
-            <td><img src=""  alt="img"> My Awesome Product</td>
-            <td><input type="number" value="1" min="1" class="qty-input"></td>
-            <td class="cart-price">$25.00</td>
-            <td><button class="delete-btn">🗑️</button></td>
-          </tr>
+                <tr  >
+                  <app-cart-item *ngFor="let prod of sentProductsSubject | async" [cartProduct]="prod"></app-cart-item>
+        </tr>
           
         </tbody>
         </table>
 
       <div class="cart-total">
-          <strong class="cart-total-title">Total</strong>
-          <span class="cart-total-price">$0</span>
+          <strong class="cart-total-title">Total </strong>
+          <span class="cart-total-price" >{{total.toFixed(2) }} RON</span>
       </div>
       <br>
-      <button class="purchase-btn" type="button" (click)="getdate()">PURCHASE</button>
+      <button class="purchase-btn" type="button">PURCHASE</button>
     </div>
