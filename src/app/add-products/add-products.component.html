@@ -28,7 +28,7 @@
     <input matInput type="url" formControlName="productImg" placeholder="Image URL" required>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="addRecipeForm.invalid">
+  <button (click)="addBotton()" mat-raised-button color="primary" type="submit" [disabled]="addRecipeForm.invalid">
     Add Product
   </button>
 </form>

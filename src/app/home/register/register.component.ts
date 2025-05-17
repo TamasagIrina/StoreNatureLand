@@ -28,8 +28,12 @@ export class RegisterComponent {
     this.database.addUser(this.registerForm.value as Omit<User,'id,role'>)
     .subscribe({
       next: (res) => {
-        console.log('User added:', res);
-        alert('Account created! Please log in.');
+        if(res==="User added"){
+          alert('Account created! Please log in.');
+        }else{
+          alert('Account allredy exist! Please enter anoder accont.');
+        }
+        
       },
       error: (err) => {
         console.error('Error:', err);
@@ -37,7 +41,7 @@ export class RegisterComponent {
       }
     });
 
-    console.log(this.registerForm.value)
+    
    
   }
 }

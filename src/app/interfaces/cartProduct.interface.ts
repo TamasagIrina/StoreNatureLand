@@ -1,4 +1,4 @@
-import { product } from "./product.interface"
+
 
 export interface cartProduct {
     cartId: number,

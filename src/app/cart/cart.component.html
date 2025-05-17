@@ -26,7 +26,7 @@
         </thead>
         <tbody id="cart-body">
                 <tr  >
-                  <app-cart-item *ngFor="let prod of sentProductsSubject | async" [cartProduct]="prod"></app-cart-item>
+                  <app-cart-item *ngFor="let prod of dataService.getCartProducts$ | async" [cartProduct]="prod"></app-cart-item>
         </tr>
           
         </tbody>
@@ -37,5 +37,5 @@
           <span class="cart-total-price" >{{total.toFixed(2) }} RON</span>
       </div>
       <br>
-      <button class="purchase-btn" type="button">PURCHASE</button>
+      <button class="purchase-btn" (click)="purchaseButton()" type="button">PURCHASE</button>
     </div>

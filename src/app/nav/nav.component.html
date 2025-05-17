@@ -21,9 +21,14 @@
       </button>
       }
       <span style="color: white;">Nature Land Store</span>
-      <button (click)="cartButton()" mat-icon-button matBadge="{{amount}}" matBadgePosition="before"
+
+      <button (click)="cartButton()" mat-icon-button [matBadge]="database.cartAmount$| async" matBadgePosition="before"
         matBadgeColor="accent" class="cartButton"><mat-icon aria-label="Shopping cart"
-          fontIcon="shopping_cart"></mat-icon></button>
+          fontIcon="shopping_cart"></mat-icon>
+      </button>
+
+
+
     </mat-toolbar>
 
     <router-outlet>

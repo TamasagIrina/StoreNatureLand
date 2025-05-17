@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
-import {FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatButtonModule} from '@angular/material/button';
+import { FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-purchase',
   imports: [
@@ -22,20 +23,20 @@ import { CommonModule } from '@angular/common';
     // BrowserAnimationsModule,
     MatSelectModule,
     MatOptionModule,
-    CommonModule, 
+    CommonModule,
     MatIconModule
   ],
   templateUrl: './purchase.component.html',
   styleUrl: './purchase.component.scss'
 })
 export class PurchaseComponent {
- 
 
+  total: any;
   paymentForm: FormGroup;
   showCardFields = false;
   canPurchase = false;
 
-     constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.paymentForm = this.fb.group({
       method: [''],
       cardName: [''],
@@ -43,9 +44,13 @@ export class PurchaseComponent {
       expiry: [''],
       cvv: ['']
     });
+
+    const nav = this.router.getCurrentNavigation();
+    this.total = nav?.extras?.state?.['total'];
+    
   }
 
-   onMethodChange() {
+  onMethodChange() {
     const method = this.paymentForm.get('method')?.value;
     this.showCardFields = method === 'card';
     this.canPurchase = method === 'cash';

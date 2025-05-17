@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,6 +15,7 @@ import { DataService } from '../services/data.service';
 import { FormsModule } from '@angular/forms';
 import { F } from '@angular/cdk/keycodes';
 import { CartComponent } from '../cart/cart.component';
+import { cartProduct } from '../interfaces/cartProduct.interface';
 
 @Component({
   selector: 'app-nav',
@@ -36,13 +37,41 @@ import { CartComponent } from '../cart/cart.component';
 })
 export class NavComponent {
   private breakpointObserver = inject(BreakpointObserver);
-  amount: any = 0;
+
   private roleSubject = new BehaviorSubject<string>('');
   role$ = this.roleSubject.asObservable();
+ 
+  cartAmount$: Observable<number> | undefined;
 
-  constructor(private router: Router, private database: DataService) {
-    this.getData()
-   }
+
+
+
+  constructor(private router: Router, protected database: DataService) {
+
+  }
+
+   
+  ngOnInit() {
+
+    //this.cartAmount$ = this.database.cartAmount$;
+
+    this.database.getRole(localStorage.getItem('email') || '').subscribe({
+      next: (response) => {
+
+        this.roleSubject.next(response)
+
+      }
+
+    });
+    this.database.getCartProduct(localStorage.getItem('id') as unknown as number);
+    this.database.updateCartAmount();
+   
+
+  }
+ 
+  
+
+
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -55,21 +84,14 @@ export class NavComponent {
   }
 
 
-  getData() {
-    this.database.getRole(localStorage.getItem('email') || '').subscribe({
-      next: (response) => {
 
-        this.roleSubject.next(response)
-
-      }
-
-    });
-  }
 
   isAdmin(): boolean {
-    
+
     return this.roleSubject.getValue() === 'ADMIN';
   }
 
 
 }
+
+

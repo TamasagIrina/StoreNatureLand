@@ -1,9 +1,9 @@
 
 <tr class="cart-row">
-            <td><img src="{{cartProduct.productImg}}"  alt="img">  {{cartProduct.productName}}</td>
+            <td><img src="{{cartProduct.productImg}}"  alt="img">  {{cartProduct.productName}} </td>
             <td><input type="number" value="{{cartProduct.amount}}" [(ngModel)]="cartProduct.amount" (change)="updateQuantity()"min="1"></td>
             <td class="cart-price">{{(cartProduct.productPrice*cartProduct.amount).toFixed(2)}}</td>
-            <td><button class="delete-btn">🗑️</button></td>
+            <td><button (click)="deleteButton()" class="delete-btn">🗑️</button></td>
  </tr>
   
 

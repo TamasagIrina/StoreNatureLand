@@ -26,44 +26,28 @@ import { NavComponent } from '../nav/nav.component';
 
 export class CartComponent {
   catrPorduct: cartProduct[] = []
-  protected sentProductsSubject = new BehaviorSubject<cartProduct[]>([]);
-  sentProducts$ = this.sentProductsSubject.asObservable();
+ 
   total: number = 0;
-  constructor(readonly router: Router, private dataService: DataService, private nav: NavComponent) {
+  constructor(readonly router: Router, protected dataService: DataService) {
 
   }
   ngOnInit() {
-    let id: number;
-    this.dataService.getUserId(localStorage.getItem('email') || "").subscribe({
-      next: (response) => {
+    
 
-        id = response as number;
-        console.log(id as number);
-        this.dataService.getCartProduct(id).subscribe({
-          next: (response) => {
-            this.sentProductsSubject.next(response);
-
-          }
-        });
-      }
-    });
-
-
+    this.dataService.getCartProduct(localStorage.getItem('id') as unknown as number);
     this.updatePrice();
-
+    
   }
 
   updatePrice() {
     this.total = 0;
-    this.nav.amount = 0;
-    this.sentProductsSubject.subscribe(products => {
+    
+    this.dataService.getCartProductsSubject.subscribe(products => {
       for (const prod of products) {
         this.total += prod.productPrice * prod.amount;
-        this.nav.amount += prod.amount;
+      
+
       }
-
-
-
 
     });
 
@@ -71,7 +55,9 @@ export class CartComponent {
   }
 
   purchaseButton() {
-    this.router.navigateByUrl('mainPage/purchase');
+     this.router.navigate(['/mainPage/purchase'], {
+      state: { total: this.total }
+    });
 
   }
 
