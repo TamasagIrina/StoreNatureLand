@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { User } from '../interfaces/user.interface';
 import { T } from '@angular/cdk/keycodes';
 import { cart } from '../interfaces/cart.interface';
+import { oreder } from '../interfaces/order.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,8 @@ export class DataService {
 
   amount: any = 0;
 
+  addedToOrdes: boolean = false;
+
   public cartAmountSubject = new BehaviorSubject<number>(0);
   public cartAmount$ = this.cartAmountSubject.asObservable();
 
@@ -32,6 +35,9 @@ export class DataService {
 
   public getCartProductsSubject = new BehaviorSubject<cartProduct[]>([]);
   getCartProducts$ = this.getCartProductsSubject.asObservable();
+
+   public getOrderByIdSubject = new BehaviorSubject<oreder[]>([]);
+  getOrderByIds$ = this.getOrderByIdSubject.asObservable();
 
   readonly API_URL = 'http://localhost:8080/';
 
@@ -48,20 +54,20 @@ export class DataService {
 
   }
 
-   updatePrice() {
-    
+  updatePrice() {
+
 
     this.getCartProductsSubject.subscribe(products => {
       this.total = 0;
       for (const prod of products) {
         this.total += prod.productPrice * prod.amount;
-      
+
 
       }
       this.totalSubject.next(this.total);
     });
 
-    
+
 
 
   }
@@ -91,11 +97,11 @@ export class DataService {
           this.router.navigateByUrl('mainPage/store');
           localStorage.setItem('email', email);
           this.getUserId(email);
-        
+
         } else {
           alert(response)
         }
-       
+
       },
       error: (err) => {
         alert(err);
@@ -145,6 +151,20 @@ export class DataService {
   }
 
 
+  addOrder(order: Omit<oreder, 'id,status'>) {
+    this.addedToOrdes = false;
+    return this.http.post(`${this.API_URL}addOrder`, order, { responseType: 'text' }).subscribe({
+      next: (response) => {
+        alert(response);
+        this.addedToOrdes = true;
+      },
+      error: (err) => {
+        alert(err)
+      }
+    });
+  }
+
+
   getProducts() {
     return this.http.get<product[]>(this.API_URL + "getProducts").pipe(
       catchError((error) => {
@@ -188,6 +208,22 @@ export class DataService {
 
   deleteCartItem(personId: number, productId: number): Observable<string> {
     const url = `${this.API_URL}delete/${personId}/${productId}`;
-    return this.http.delete(url, { responseType: 'text' }); // 👈 if backend returns plain text like "Deleted"
+    return this.http.delete(url, { responseType: 'text' });
+  }
+
+  deleteALLCartItems(personId: number): Observable<string> {
+    const url = `${this.API_URL}deleteALL/${personId}`;
+    return this.http.delete(url, { responseType: 'text' });
+  }
+
+  getOrdesById(personId: number) {
+    const url = `${this.API_URL}getOrderById/${personId}`;
+    return this.http.get<oreder[]>(url).subscribe({
+      next: (response) => {
+        this.getOrderByIdSubject.next(response)
+
+      }
+    });
+;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { oreder } from '../interfaces/order.interface';
+import { OrderStatus } from '../interfaces/orderStatus.interfac';
 @Component({
   selector: 'app-purchase',
   imports: [
@@ -32,12 +34,13 @@ import { DataService } from '../services/data.service';
 })
 export class PurchaseComponent {
 
- 
+  @Input() order!: oreder;
+
   paymentForm: FormGroup;
   showCardFields = false;
   canPurchase = false;
 
-  constructor(private fb: FormBuilder, private router: Router, protected dataService : DataService) {
+  constructor(private fb: FormBuilder, private router: Router, protected dataService: DataService) {
     this.paymentForm = this.fb.group({
       method: [''],
       cardName: [''],
@@ -46,9 +49,21 @@ export class PurchaseComponent {
       cvv: ['']
     });
 
-  
-    
+
+
   }
+
+  private _formBuilder = inject(FormBuilder);
+
+  firstFormGroup = this._formBuilder.group({
+    firstNameCtrl: ['', Validators.required],
+    lastNameCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    addressCtrl: ['', Validators.required],
+    phoneCtrl: ['', Validators.required],
+  });
+  isEditable = false;
 
   onMethodChange() {
     const method = this.paymentForm.get('method')?.value;
@@ -71,18 +86,38 @@ export class PurchaseComponent {
   }
 
   purchase() {
-    console.log('Purchase confirmed');
+    this.order = {
+      id: 0,
+      id_client: 0,
+      first_name: '',
+      last_name: '',
+      address: '',
+      phone_number: '',
+      cart_elements: '',
+      payment_method: '',
+      status: OrderStatus.IN_PROCESS
+    };
+
+    let idClient: number = localStorage.getItem('id') as unknown as number;
+    const formValues = this.firstFormGroup.getRawValue();
+    const secondFormGroup = this.secondFormGroup.getRawValue();
+    this.order.id_client = idClient;
+    this.order.first_name = formValues.firstNameCtrl?.toString() ?? '';
+    this.order.last_name = formValues.lastNameCtrl?.toString() ?? '';
+    this.order.address = secondFormGroup.addressCtrl?.toString() ?? '';
+    this.order.phone_number = secondFormGroup.phoneCtrl?.toString() ?? '';
+    this.order.payment_method= this.paymentForm.get('method')?.value;
+
+    
+    this.dataService.getCartProductsSubject.subscribe(products => {
+     
+      for (const prod of products) {
+        this.order.cart_elements+=prod.productName+"--"+prod.amount+";  ";
+      }
+      console.log(this.order);
+      
+    });
+    this.dataService.addOrder(this.order);
+
   }
-
-  private _formBuilder = inject(FormBuilder);
-
-  firstFormGroup = this._formBuilder.group({
-    firstNameCtrl: ['', Validators.required],
-    lastNameCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    addressCtrl: ['', Validators.required],
-    phoneCtrl: ['', Validators.required],
-  });
-  isEditable = false;
 }

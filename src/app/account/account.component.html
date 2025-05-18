@@ -17,24 +17,17 @@
     <thead>
       <tr>
         <th>Purchase ID</th>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Files</th>
+        <th>Purchase</th>
+        <th>Addres</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>#96</td>
-        <td>January 4, 2013</td>
-        <td>$10.19</td>
-        <td><a href="#">Bird of Paradise</a><br><a href="#">Bird Photo</a></td>
-      </tr>
-      <tr>
-        <td>#83</td>
-        <td>December 15, 2012</td>
-        <td>$10.19</td>
-        <td><a href="#">Bird of Paradise</a><br><a href="#">Bird Photo</a></td>
-      </tr>
+        @for (oreder of dataService.getOrderByIdSubject | async; track $index){
+        <app-table-order [oreder]="oreder"></app-table-order>
+        }@empty {
+          <div>No items to display</div>
+      }
     </tbody>
   </table>
 

@@ -38,12 +38,12 @@ export class NavComponent {
 
   private roleSubject = new BehaviorSubject<string>('');
   role$ = this.roleSubject.asObservable();
- 
+
   constructor(private router: Router, protected database: DataService) {
 
   }
 
-   
+
   ngOnInit() {
 
     //this.cartAmount$ = this.database.cartAmount$;
@@ -56,13 +56,20 @@ export class NavComponent {
       }
 
     });
+
+
+    // if (this.database.addedToOrdes) {
+    //   let id = localStorage.getItem('id') as unknown as number;
+    //   this.database.deleteALLCartItems(id);
+
+    // }
+
     this.database.getCartProduct(localStorage.getItem('id') as unknown as number);
     this.database.updateCartAmount();
-   
 
   }
- 
-  
+
+
 
 
 

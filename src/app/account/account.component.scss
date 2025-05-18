@@ -64,25 +64,9 @@
     border-collapse: collapse;
     margin-bottom: 30px;
 
-    th, td {
-      text-align: left;
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
+   
 
-    th {
-      background: #eee;
-      font-weight: bold;
-    }
-
-    a {
-      color: #007bff;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+    
   }
 
   .account-form {
