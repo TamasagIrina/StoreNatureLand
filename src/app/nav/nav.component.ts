@@ -13,9 +13,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { FormsModule } from '@angular/forms';
-import { F } from '@angular/cdk/keycodes';
-import { CartComponent } from '../cart/cart.component';
-import { cartProduct } from '../interfaces/cartProduct.interface';
+
 
 @Component({
   selector: 'app-nav',
@@ -41,11 +39,6 @@ export class NavComponent {
   private roleSubject = new BehaviorSubject<string>('');
   role$ = this.roleSubject.asObservable();
  
-  cartAmount$: Observable<number> | undefined;
-
-
-
-
   constructor(private router: Router, protected database: DataService) {
 
   }

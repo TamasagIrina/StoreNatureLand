@@ -12,8 +12,8 @@ import { CartComponent } from '../cart.component';
   styleUrl: './cart-item.component.scss'
 })
 export class CartItemComponent {
-  constructor(private database: DataService, private cart: CartComponent) {
-  
+  constructor(private database: DataService) {
+
   }
   @Input() cartProduct!: cartProduct;
   inputValue: any;
@@ -24,10 +24,11 @@ export class CartItemComponent {
       next: (response) => {
         console.log(response);
         this.database.updateCartAmount();
-  
+        this.database.updatePrice();
+
       }
     });
-    this.cart.updatePrice();
+
 
   }
 
@@ -44,9 +45,10 @@ export class CartItemComponent {
               if (response === 'Deleted') {
                 alert(response);
 
-                this.database.updateCartAmount();
                 this.database.getCartProduct(personId);
-                
+                this.database.updateCartAmount();
+                this.database.updatePrice();
+
               } else {
                 alert(response)
               }

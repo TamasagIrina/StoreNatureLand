@@ -15,6 +15,8 @@ export class DataService {
 
   poduct: product[] = [];
 
+  total: number = 0;
+
   user: User[] = [];
 
   cartProuct: cartProduct[] = [];
@@ -25,6 +27,8 @@ export class DataService {
   public cartAmount$ = this.cartAmountSubject.asObservable();
 
 
+  public totalSubject = new BehaviorSubject<number>(0);
+  public total$ = this.totalSubject.asObservable();
 
   public getCartProductsSubject = new BehaviorSubject<cartProduct[]>([]);
   getCartProducts$ = this.getCartProductsSubject.asObservable();
@@ -44,9 +48,27 @@ export class DataService {
 
   }
 
+   updatePrice() {
+    
+
+    this.getCartProductsSubject.subscribe(products => {
+      this.total = 0;
+      for (const prod of products) {
+        this.total += prod.productPrice * prod.amount;
+      
+
+      }
+      this.totalSubject.next(this.total);
+    });
+
+    
+
+
+  }
+
+
   updateCartAmount() {
 
-    //this.getCartProduct(localStorage.getItem('id') as unknown as number)
     this.getCartProductsSubject.subscribe(products => {
       this.amount = 0;
       for (const prod of products) {
@@ -69,10 +91,11 @@ export class DataService {
           this.router.navigateByUrl('mainPage/store');
           localStorage.setItem('email', email);
           this.getUserId(email);
+        
         } else {
           alert(response)
         }
-        console.log(response)
+       
       },
       error: (err) => {
         alert(err);
@@ -135,6 +158,8 @@ export class DataService {
     return this.http.get(this.API_URL + `getId/${email}`).subscribe({
       next: (response) => {
         localStorage.setItem('id', response as string);
+        this.getCartProduct(localStorage.getItem('id') as unknown as number);
+        this.updateCartAmount();
       },
       error: (err) => {
         alert(err)

@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 @Component({
   selector: 'app-purchase',
   imports: [
@@ -31,12 +32,12 @@ import { Router } from '@angular/router';
 })
 export class PurchaseComponent {
 
-  total: any;
+ 
   paymentForm: FormGroup;
   showCardFields = false;
   canPurchase = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, protected dataService : DataService) {
     this.paymentForm = this.fb.group({
       method: [''],
       cardName: [''],
@@ -45,8 +46,7 @@ export class PurchaseComponent {
       cvv: ['']
     });
 
-    const nav = this.router.getCurrentNavigation();
-    this.total = nav?.extras?.state?.['total'];
+  
     
   }
 

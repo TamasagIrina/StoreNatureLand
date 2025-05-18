@@ -27,37 +27,21 @@ import { NavComponent } from '../nav/nav.component';
 export class CartComponent {
   catrPorduct: cartProduct[] = []
  
-  total: number = 0;
+  
   constructor(readonly router: Router, protected dataService: DataService) {
 
   }
   ngOnInit() {
     
-
     this.dataService.getCartProduct(localStorage.getItem('id') as unknown as number);
-    this.updatePrice();
+    this.dataService.updatePrice();
     
   }
 
-  updatePrice() {
-    this.total = 0;
-    
-    this.dataService.getCartProductsSubject.subscribe(products => {
-      for (const prod of products) {
-        this.total += prod.productPrice * prod.amount;
-      
-
-      }
-
-    });
-
-
-  }
-
+ 
   purchaseButton() {
-     this.router.navigate(['/mainPage/purchase'], {
-      state: { total: this.total }
-    });
+     this.router.navigateByUrl('/mainPage/purchase');
+    
 
   }
 

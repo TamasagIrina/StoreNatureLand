@@ -38,6 +38,7 @@ export class ProductCardComponent {
         next: (res) => {
           if (res === "added") {
             alert('Product added in cart');
+            this.database.getCartProduct(id);
             this.database.updateCartAmount();
           } else {
             alert('Account allredy have this in cart');
