@@ -52,9 +52,3 @@ export class CartComponent {
 
 
 
-
-
-function round(arg0: number) {
-  throw new Error('Function not implemented.');
-}
-

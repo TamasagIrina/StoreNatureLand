@@ -27,12 +27,12 @@ export class ProductCardComponent {
   }
   addButtonOnAcction() {
     let id: number = localStorage.getItem('id') as unknown as number;
-    console.log(id);
+
     this.cartProduct = {} as cart;
     this.cartProduct.amount = 1;
     this.cartProduct.personid = id;
     this.cartProduct.product = this.product
-    console.log(this.cartProduct);
+    
     this.database.addProdactToCart(this.cartProduct as Omit<cart, 'id'>)
       .subscribe({
         next: (res) => {

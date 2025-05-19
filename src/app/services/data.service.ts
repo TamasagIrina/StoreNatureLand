@@ -39,6 +39,9 @@ export class DataService {
    public getOrderByIdSubject = new BehaviorSubject<oreder[]>([]);
   getOrderByIds$ = this.getOrderByIdSubject.asObservable();
 
+    public getOrdersSubject = new BehaviorSubject<oreder[]>([]);
+  getOrders$ = this.getOrdersSubject.asObservable();
+
   readonly API_URL = 'http://localhost:8080/';
 
   constructor(private http: HttpClient, readonly router: Router) { }
@@ -152,16 +155,8 @@ export class DataService {
 
 
   addOrder(order: Omit<oreder, 'id,status'>) {
-    this.addedToOrdes = false;
-    return this.http.post(`${this.API_URL}addOrder`, order, { responseType: 'text' }).subscribe({
-      next: (response) => {
-        alert(response);
-        this.addedToOrdes = true;
-      },
-      error: (err) => {
-        alert(err)
-      }
-    });
+    console.log('addOrder called');
+    return this.http.post(`${this.API_URL}addOrder`, order, { responseType: 'text' });
   }
 
 
@@ -201,6 +196,21 @@ export class DataService {
     );
   }
 
+  updateStatusOrder(idOrder:number){
+    return this.http.put(`${this.API_URL}depot/${idOrder}` , {}, {
+      responseType:'text'
+    }).subscribe({
+       next: (response) => {
+        console.log(response);
+      },
+      error: (err) => {
+        alert(err)
+      }
+    });
+  
+    
+  }
+
 
 
   getProductId(productName: string): Observable<number> {
@@ -229,9 +239,14 @@ export class DataService {
 
   }
 
-  getAllOrders(): Observable<oreder[]>{
+  getAllOrders(){
     const url = `${this.API_URL}getAllOrders`;
-    return this.http.get<oreder[]>(url);
+    return this.http.get<oreder[]>(url).subscribe({
+      next: (response) => {
+        this.getOrdersSubject.next(response);
+        
+      }
+    });;
 
   }
 }

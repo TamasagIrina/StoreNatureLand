@@ -1,12 +1,27 @@
-<mat-tab-group dynamicHeight>
-  <mat-tab label="In Process">
-    <div class="example-small-box mat-elevation-z4">
-      Small content
-    </div>
-  </mat-tab>
-  <mat-tab label="Depoted">
-    <div class="example-large-box mat-elevation-z4">
-      Large content
-    </div>
-  </mat-tab>
-</mat-tab-group>
+
+<div class="page-content">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="In Process">
+      <div class="inProcess">
+        @for (order of dataService.getOrdersSubject | async; track $index){
+        @if (order.status === "IN_PROCESS") {
+        <app-oreder-card [order]="order"></app-oreder-card>
+        }
+        }@empty {
+        <div>No items to display</div>
+        }
+      </div>
+    </mat-tab>
+    <mat-tab label="Depoted">
+      <div class="deported">
+        @for (order of dataService.getOrdersSubject | async; track $index){
+        @if (order.status === "DEPORTED") {
+        <app-oreder-card [order]="order"></app-oreder-card>
+        }
+        }@empty {
+        <div>No items to display</div>
+        }
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

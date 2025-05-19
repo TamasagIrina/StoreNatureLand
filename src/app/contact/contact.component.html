@@ -9,7 +9,7 @@
     </div>
     <div class="info-item">
       <mat-icon color="primary">email</mat-icon>
-      <span>contact</span>
+      <span>"NatureLend"</span>
     </div>
     <div class="info-item">
       <mat-icon color="primary">location_on</mat-icon>
@@ -17,15 +17,15 @@
     </div>
   </div>
 
-  <form class="contact-form">
-    <div class="name-row">
-      <input type="text" placeholder="First Name" />
-      <input type="text" placeholder="Last Name" />
-    </div>
-    <input type="email" placeholder="Email" />
-    <input type="tel" placeholder="Phone (optional)" />
-    <textarea placeholder="Your message..."></textarea>
-    <button type="submit">Send Message</button>
-  </form>
+ <form class="contact-form" [formGroup]="contactForm" >
+  <div class="name-row">
+    <input type="text" formControlName="firstName" placeholder="First Name" />
+    <input type="text" formControlName="lastName" placeholder="Last Name" />
+  </div>
+  <input type="email" formControlName="email" placeholder="Email" />
+  <input type="tel" formControlName="phone" placeholder="Phone (optional)" />
+  <textarea formControlName="message" placeholder="Your message..."></textarea>
+  <button type="submit">Send Message</button>
+</form>
 </div>
 

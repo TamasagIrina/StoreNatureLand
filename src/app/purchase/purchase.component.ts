@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { oreder } from '../interfaces/order.interface';
+import { of } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
 import { OrderStatus } from '../interfaces/orderStatus.interfac';
 @Component({
   selector: 'app-purchase',
@@ -86,38 +88,52 @@ export class PurchaseComponent {
   }
 
   purchase() {
-    this.order = {
-      id: 0,
-      id_client: 0,
-      first_name: '',
-      last_name: '',
-      address: '',
-      phone_number: '',
-      cart_elements: '',
-      payment_method: '',
-      status: OrderStatus.IN_PROCESS
-    };
 
     let idClient: number = localStorage.getItem('id') as unknown as number;
+    this.order = {} as oreder;
+
     const formValues = this.firstFormGroup.getRawValue();
     const secondFormGroup = this.secondFormGroup.getRawValue();
-    this.order.id_client = idClient;
+    this.order.clientId = idClient as number;
     this.order.first_name = formValues.firstNameCtrl?.toString() ?? '';
     this.order.last_name = formValues.lastNameCtrl?.toString() ?? '';
     this.order.address = secondFormGroup.addressCtrl?.toString() ?? '';
     this.order.phone_number = secondFormGroup.phoneCtrl?.toString() ?? '';
-    this.order.payment_method= this.paymentForm.get('method')?.value;
+    this.order.payment_method = this.paymentForm.get('method')?.value;
+    this.order.status= OrderStatus.IN_PROCESS;
 
-    
+
     this.dataService.getCartProductsSubject.subscribe(products => {
-     
+
       for (const prod of products) {
-        this.order.cart_elements+=prod.productName+"--"+prod.amount+";  ";
+        this.order.cart_elements += prod.productName + "--" + prod.amount + ";  ";
       }
-      console.log(this.order);
       
+
     });
-    this.dataService.addOrder(this.order);
+
+
+    this.placeOrder();
+
+
+  }
+
+  placeOrder() {
+    if (this.order.cart_elements != null) {
+      let idClient: number = localStorage.getItem('id') as unknown as number;
+
+      of(null).pipe(
+        concatMap(() => this.dataService.addOrder(this.order)),
+        concatMap(() => this.dataService.deleteALLCartItems(idClient)),
+        tap(() => this.dataService.getCartProduct(idClient)),
+        tap(() => this.dataService.updateCartAmount())
+      ).subscribe({
+        next: () => console.log(' All steps completed'),
+        error: (err) => console.error('Error:', err)
+      });
+    }else{
+      alert("Cart emty")
+    }
 
   }
 }

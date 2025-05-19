@@ -2,7 +2,7 @@ import { OrderStatus } from "./orderStatus.interfac";
 
 export interface oreder {
     id: number,
-    id_client: number,
+    clientId: number,
     first_name: string,
     last_name: string,
     address: string,

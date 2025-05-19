@@ -1,0 +1,55 @@
+.purchase-card {
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 12px;
+  background: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+
+    .id {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .status {
+      font-weight: bold;
+      font-size: 0.9rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background-color: #ffdbdb;
+      color: #660000;
+    }
+
+    .label {
+      font-weight: 500;
+      color: #666;
+      min-width: 80px;
+    }
+
+    .value {
+      flex: 1;
+      white-space: pre-wrap;
+      color: #444;
+    }
+  }
+}
+button {
+  background-color: #ffa3a3;
+  color: #640000;
+  border: none;
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: default;
+}
