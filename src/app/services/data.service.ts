@@ -178,7 +178,7 @@ export class DataService {
     return this.http.get(this.API_URL + `getId/${email}`).subscribe({
       next: (response) => {
         localStorage.setItem('id', response as string);
-        this.getCartProduct(localStorage.getItem('id') as unknown as number);
+        this.getCartProduct(response as number);
         this.updateCartAmount();
       },
       error: (err) => {
@@ -186,6 +186,8 @@ export class DataService {
       }
     });
   }
+
+
 
   updateAmount(idProd: number, amount: number) {
     return this.http.put(`${this.API_URL}${idProd}/${amount}`, {}, {
@@ -224,6 +226,12 @@ export class DataService {
 
       }
     });
-;
+
+  }
+
+  getAllOrders(): Observable<oreder[]>{
+    const url = `${this.API_URL}getAllOrders`;
+    return this.http.get<oreder[]>(url);
+
   }
 }

@@ -1,6 +1,27 @@
-    <tr>
+    <!-- <tr>
         <td>{{oreder.id}}</td>
         <td>{{oreder.cart_elements}}</td>
         <td>{{oreder.address}}</td>
         <td>{{oreder.status}}</td>
-      </tr>
+      </tr> -->
+<mat-card class="purchase-card">
+  <div class="row">
+    <div class="id">#{{ order.id }}</div>
+    <div class="status">{{ order.status.replace('_', ' ') }}</div>
+  </div>
+
+  <div class="row">
+    <div class="label">Products:</div>
+    <div class="value">{{ order.cart_elements }}</div>
+  </div>
+
+  <div class="row">
+    <div class="label">Address:</div>
+    <div class="value">{{ order.address }}</div>
+  </div>
+
+    <div class="row">
+    <div class="label">For:</div>
+    <div class="value">{{ order.first_name+" "+order.last_name }}</div>
+  </div>
+</mat-card>

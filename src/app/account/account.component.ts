@@ -11,12 +11,19 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './account.component.scss'
 })
 export class AccountComponent {
+  
+
+  
   constructor(protected dataService: DataService) {
 
   }
 
+   email: any= localStorage.getItem('email');
+ 
+
   ngOnInit() {
     this.dataService.getOrdesById(localStorage.getItem('id') as unknown as number);
+   
   }
 
 }

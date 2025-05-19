@@ -1,10 +1,27 @@
-
+<!-- 
 <tr class="cart-row">
             <td><img src="{{cartProduct.productImg}}"  alt="img">  {{cartProduct.productName}} </td>
             <td><input type="number" value="{{cartProduct.amount}}" [(ngModel)]="cartProduct.amount" (change)="updateQuantity()"min="1"></td>
             <td class="cart-price">{{(cartProduct.productPrice*cartProduct.amount).toFixed(2)}}</td>
             <td><button (click)="deleteButton()" class="delete-btn">🗑️</button></td>
- </tr>
+ </tr> -->
   
 
+<mat-card class="cart-item">
+ 
+  <div class="item-details">
+
+     <img mat-card-image src="{{cartProduct.productImg}}" alt="{{cartProduct.productName}}" />
+    <h3>{{cartProduct.productName}}</h3>
+  <mat-form-field appearance="outline" class="qty-field">
+    <input matInput type="number" min="1" value="{{cartProduct.amount}}" [(ngModel)]="cartProduct.amount" (change)="updateQuantity()" />
+  </mat-form-field>
+      
+    
+    <div class="price">{{(cartProduct.productPrice*cartProduct.amount).toFixed(2)}} RON</div>
+    <button mat-icon-button color="warn" (click)="deleteButton()" > 
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</mat-card>
 

@@ -4,10 +4,16 @@ import { product } from '../../interfaces/product.interface';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { CartComponent } from '../cart.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 @Component({
   selector: 'app-cart-item',
-  imports: [FormsModule],
+  imports: [ MatCardModule,MatCardModule,MatIconModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.scss'
 })

@@ -1,41 +1,40 @@
+<div class="hero">
 
-  <div class="hero">
-   
-    <div class="hero-content">
-        <h1>
-            NatureLand <span>Cart</span>
-            <br>
-            <mat-icon  aria-label="Shopping cart" fontIcon="shopping_cart"></mat-icon>
-        </h1>
-      <p>Your happy place</p>
-    </div>
-  
+  <div class="hero-content">
+    <h1>
+      NatureLand <span>Cart</span>
+      <br>
+      <mat-icon aria-label="Shopping cart" fontIcon="shopping_cart"></mat-icon>
+    </h1>
+    <p>Your happy place</p>
   </div>
 
-  <div class="cart-container content-section hidden" id="cart">
-      <h2>Items in Your Cart</h2>
-      <table class="cart-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          
-          </tr>
-        </thead>
-        <tbody id="cart-body">
-               
-                  <app-cart-item *ngFor="let prod of dataService.getCartProducts$ | async" [cartProduct]="prod"></app-cart-item>
-        
-          
-        </tbody>
-        </table>
+</div>
 
-      <div class="cart-total">
-          <strong class="cart-total-title">Total </strong>
-          <span class="cart-total-price" >{{dataService.totalSubject.value.toFixed(2)}} </span>
+<div class="cart-container content-section hidden" id="cart">
+  <h2>Items in Your Cart</h2>
+  <table class="cart-table">
+    <thead>
+      <div class="top-table">
+        <div>Name</div>
+        <div>Amount</div>
+        <div>Price</div>
       </div>
-      <br>
-      <button class="purchase-btn" (click)="purchaseButton()" type="button">PURCHASE</button>
-    </div>
+
+
+    </thead>
+
+
+    <app-cart-item *ngFor="let prod of dataService.getCartProducts$ | async" [cartProduct]="prod"></app-cart-item>
+
+
+
+  </table>
+
+  <div class="cart-total">
+    <strong class="cart-total-title">Total </strong>
+    <span class="cart-total-price">{{dataService.totalSubject.value.toFixed(2)}} </span>
+  </div>
+  <br>
+  <button class="purchase-btn" (click)="purchaseButton()" type="button">PURCHASE</button>
+</div>

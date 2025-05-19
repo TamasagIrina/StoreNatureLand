@@ -1,42 +1,90 @@
-.cart-row {
- display: flex;
- align-items: center;
- justify-content: center;
- width: 1500px;
-  height: 160px;
+// .cart-row {
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//  width: 1500px;
+//   height: 160px;
  
-  td {
-    vertical-align: middle;
-    padding: 20px 36px;
-    text-align: center;
-  }
+//   td {
+//     vertical-align: middle;
+//     padding: 20px 36px;
+//     text-align: center;
+//   }
 
-  td:first-child {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    justify-content: start;
+//   td:first-child {
+//     display: flex;
+//     align-items: center;
+//     gap: 12px;
+//     justify-content: start;
+//   }
+
+//   img {
+//     width: 80px;
+//     height: 80px;
+//     object-fit: cover;
+//     border-radius: 8px;
+//   }
+
+//   input {
+//     width: 70px;
+//     text-align: center;
+//     padding: 5px;
+//     background-color: transparent;
+//     border-color: rgb(138, 45, 45);
+//   }
+
+//   .delete-btn {
+//     background: none;
+//     border: none;
+//     font-size: 1.2rem;
+//     cursor: pointer;
+//   }
+// }
+
+
+.cart-item {
+  display: flex;
+  align-items: left;
+
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background-color: auto;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 2rem;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(58, 15, 15, 0.1);
   }
 
   img {
     width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
+    margin-right: 20px;
   }
 
-  input {
-    width: 70px;
-    text-align: center;
-    padding: 5px;
-    background-color: transparent;
-    border-color: rgb(138, 45, 45);
-  }
+  .item-details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    flex: 1;
 
-  .delete-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
+    h3 {
+      flex: 1;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .qty-field {
+      width: 70px;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
   }
 }

@@ -5,7 +5,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  margin-left: calc(-50vw + 50%); // elimină marginile implicite
+  margin-left: calc(-50vw + 50%); 
   position: relative;
   display: flex;
   align-items: center;
@@ -13,6 +13,8 @@
   color: white ;
   text-shadow: 1px 1px 3px #333;
   overflow: hidden;
+
+ 
   
     mat-icon {
         font-size: 30px;
@@ -45,6 +47,37 @@
   }
 }
 
+ .top-table{
+  display: grid;
+  grid-template-columns: 10px 1fr 60px 140px 50px; 
+  align-items: center;
+  padding: 16px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #444;
+
+  div {
+    text-align: center;
+
+    &:first-child {
+      grid-column: span 2;
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    &:nth-child(2) {
+      text-align: center;
+      
+      padding-left: 0px;
+    }
+
+    &:nth-child(3) {
+      text-align: right;
+      padding-right: 40px;
+    }
+  }
+}
+
 .cart-container {
   background: auto;
   display: flex;
@@ -52,9 +85,9 @@
   align-items: center;
   padding: 40px;
   border-radius: 8px;
-  width: 100%;
   
-  box-shadow: 0 5px 25px rgba(147, 37, 37, 0.15);
+  
+  box-shadow: 0 5px 25px rgba(60, 6, 6, 0.15);
   margin: 0 auto;
 
   h2 {
@@ -63,25 +96,7 @@
     color: #333;
   }
 
-  .cart-table {
-    width: 90%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-
-    th {
-      text-align: left;
-      font-weight: bold;
-      padding: 4px;
-      background-color: #fff5f5;
-      border-bottom: 2px solid #fffafa;
-    }
-
-    td {
-      padding: 15px;
-      border-bottom: 1px solid #ececec;
-      vertical-align: middle;
-    }
-  }
+ 
 
   .cart-total {
     margin-top: 20px;
@@ -100,7 +115,7 @@
 
   .purchase-btn {
     margin-top: 20px;
-    padding: 10px 30px;
+    padding: 10px 100px;
     font-size: 1rem;
     background-color: #9e002d;
     color: white;
