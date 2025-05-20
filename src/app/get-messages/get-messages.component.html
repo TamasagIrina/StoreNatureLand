@@ -1,26 +1,32 @@
-<h1>MESSAGES</h1>
-<div class="messages-container">
+<div class="page-content">
+  <div class="messages-header">
+    <h1>Messages</h1>
+  </div>
 
-  
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="WAITING">
+      <div class="inProcess">
+        @for (messages of dataService.getMessageSubject | async; track $index){
 
-     <div class="card-wrapper">
-  <mat-card class="example-card" *ngFor="let m of messages">
-    <mat-card-header>
-      <mat-card-title>{{ m.title }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>{{ m.text }}</p>
-    </mat-card-content>
-    <mat-card-footer class="example-card-footer">
-      <mat-chip-set aria-label="Chihuahua traits">
-        <mat-chip>{{ m.email }}</mat-chip>
-        <mat-chip>{{ m.phone }}</mat-chip>
-      </mat-chip-set>
-    </mat-card-footer>
-  </mat-card>
-</div>
+        @if (messages.messageStatus==='WAITING') {
+        <app-card-message [messages]="messages"></app-card-message>
 
-
-
-
+        }
+        }@empty {
+        <div>No items to display</div>
+        }
+      </div>
+    </mat-tab>
+    <mat-tab label="ANSWERED">
+      <div class="deported">
+        @for (messages of dataService.getMessageSubject | async; track $index){
+        @if (messages.messageStatus==='ANSWERED') {
+        <app-card-message [messages]="messages"></app-card-message>
+        }
+        }@empty {
+        <div>No items to display</div>
+        }
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

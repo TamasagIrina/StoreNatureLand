@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 
 
+
 export interface StoreComponent {
   label: string;
   content: Type<any>;  

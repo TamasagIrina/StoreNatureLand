@@ -1,0 +1,80 @@
+.messages-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .status {
+        font-weight: bold;
+        font-size: 0.75rem;
+        width: 60px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        background-color: #ffe5e5;
+    
+        text-transform: uppercase;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+
+        &.waiting {
+            background-color: #ffcdcd;
+            color: #6c0e0e;
+        }
+
+        &.answered {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+    }
+
+
+}
+
+.example-card {
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(160, 9, 53, 0.25);
+
+    background-color: #fffafa;
+    transition: all 0.3s ease;
+    border: 1px solid #f1c4cb;
+
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(160, 9, 53, 0.35);
+    }
+
+    input {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+}
+
+button {
+    margin-top: 15px;
+    background-color: #ffa3a3;
+    color: #640000;
+    border: none;
+    font-weight: 600;
+    border-radius: 99px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: default;
+}

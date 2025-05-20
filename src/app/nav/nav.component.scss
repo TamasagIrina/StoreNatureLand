@@ -12,7 +12,7 @@
 
 .sidenav .mat-toolbar {
   background: inherit;
-  background-color: #9e002d;
+  background-color: #a0002e; ;
 }
 
 .mat-toolbar.mat-primary {
@@ -20,7 +20,7 @@
   top: 0;
   z-index: 1;
   border-radius: 0px;
-  background-color: #9e002d;
+  background-color: #a0002e; ;
  
  
 }
@@ -38,4 +38,52 @@
     color: white;
   }
 
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  background-color: #a0002e; ;
+  padding: 0.5rem 1rem;
+  color: white;
+  gap: 1rem;
+
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;    
+    object-fit: cover;
+    border: 2px solid white;
+  }
+
+  .email {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .logout-icon {
+    margin-left: auto;
+    cursor: pointer;
+    color: whitesmoke;
+    transition: transform 0.2s;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }

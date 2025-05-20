@@ -5,10 +5,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table-order',
-  imports: [MatCardModule,MatInputModule,MatIconModule, MatButtonModule,FormsModule],
+  imports: [MatCardModule,MatInputModule,MatIconModule, MatButtonModule,FormsModule, CommonModule],
   templateUrl: './table-order.component.html',
   styleUrl: './table-order.component.scss'
 })

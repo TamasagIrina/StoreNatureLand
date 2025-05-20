@@ -1,7 +1,9 @@
 <mat-card class="purchase-card">
     <div class="row">
         <div class="id">#{{ order.id }}</div>
-        <div class="status">{{ order.status.replace("_"," ") }}</div>
+        <div class="status"  [ngClass]="{
+  'in-process': order.status === 'IN_PROCESS',
+  'deported': order.status === 'DEPORTED'}">{{ order.status.replace("_"," ") }}</div>
     </div>
 
     <div class="row">

@@ -1,56 +1,31 @@
-<!-- <mat-card class="example-card" appearance="outlined">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card> -->
+
+<div class="hero">
+
+  <div class="hero-content">
+    <h1>NatureLand <span>Shopping</span></h1>
+    <p>Your happy place</p>
+  </div>
+
+</div>
+
+<div class="categories">
   <div class="search">
-  
-  <input  type="text" placeholder="Search product" class="search-bar" [(ngModel)]="searchValue" (ngModelChange)="filterValues()">
+
+  <input type="text" placeholder="Search product" class="search-bar" [(ngModel)]="searchValue"
+    (ngModelChange)="filterValues()">
 
 
-  </div>
+</div>
 
-  <div class="hero">
-   
-    <div class="hero-content">
-      <h1>NatureLand <span>Shopping</span></h1>
-      <p>Your happy place</p>
-    </div>
-  
-  </div>
-  
-  <div class="categories">
-    <div class="category-tabs">
-      <span class="active">All</span>
-      <span>Tea</span>
-      <span>Nuts</span>
-      <span>Dried Flowers</span>
-      <span>Essential Oils</span>
-    </div>
   <div class="containder">
-   <div class="product-grid">
-     
+    <div class="product-grid">
+
       @for (prod of sentProductsSubject | async; track $index){
-          <app-product-card [product]="prod"></app-product-card> 
+      <app-product-card [product]="prod"></app-product-card>
       }@empty {
-          <div>No items to display</div>
-      } 
+      <div>No items to display</div>
+      }
     </div>
   </div>
- 
-  </div>
 
+</div>

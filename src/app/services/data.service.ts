@@ -8,6 +8,7 @@ import { User } from '../interfaces/user.interface';
 import { T } from '@angular/cdk/keycodes';
 import { cart } from '../interfaces/cart.interface';
 import { oreder } from '../interfaces/order.interface';
+import { message } from '../interfaces/message.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -36,11 +37,14 @@ export class DataService {
   public getCartProductsSubject = new BehaviorSubject<cartProduct[]>([]);
   getCartProducts$ = this.getCartProductsSubject.asObservable();
 
-   public getOrderByIdSubject = new BehaviorSubject<oreder[]>([]);
+  public getOrderByIdSubject = new BehaviorSubject<oreder[]>([]);
   getOrderByIds$ = this.getOrderByIdSubject.asObservable();
 
-    public getOrdersSubject = new BehaviorSubject<oreder[]>([]);
+  public getOrdersSubject = new BehaviorSubject<oreder[]>([]);
   getOrders$ = this.getOrdersSubject.asObservable();
+
+  public getMessageSubject = new BehaviorSubject<message[]>([]);
+  getMessage$ = this.getMessageSubject.asObservable();
 
   readonly API_URL = 'http://localhost:8080/';
 
@@ -50,6 +54,17 @@ export class DataService {
     return this.http.get<cartProduct[]>(this.API_URL + `joined/${id}`).subscribe({
       next: (response) => {
         this.getCartProductsSubject.next(response);
+
+      }
+    });
+
+
+  }
+
+  getMessages() {
+    return this.http.get<message[]>(this.API_URL + `getAllMasseges`).subscribe({
+      next: (response) => {
+        this.getMessageSubject.next(response);
 
       }
     });
@@ -160,6 +175,12 @@ export class DataService {
   }
 
 
+  addMessage(message: Omit<message, 'id'>) {
+    console.log("mesage send")
+    return this.http.post(`${this.API_URL}addMessage`, message, { responseType: 'text' });
+  }
+
+
   getProducts() {
     return this.http.get<product[]>(this.API_URL + "getProducts").pipe(
       catchError((error) => {
@@ -196,19 +217,35 @@ export class DataService {
     );
   }
 
-  updateStatusOrder(idOrder:number){
-    return this.http.put(`${this.API_URL}depot/${idOrder}` , {}, {
-      responseType:'text'
+  updateStatusOrder(idOrder: number) {
+    return this.http.put(`${this.API_URL}depot/${idOrder}`, {}, {
+      responseType: 'text'
     }).subscribe({
-       next: (response) => {
+      next: (response) => {
         console.log(response);
       },
       error: (err) => {
         alert(err)
       }
     });
-  
-    
+
+
+  }
+
+
+    updateStatusMessage(idMessage: number) {
+    return this.http.put(`${this.API_URL}answered/${idMessage}`, {}, {
+      responseType: 'text'
+    }).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (err) => {
+        alert(err)
+      }
+    });
+
+
   }
 
 
@@ -239,12 +276,12 @@ export class DataService {
 
   }
 
-  getAllOrders(){
+  getAllOrders() {
     const url = `${this.API_URL}getAllOrders`;
     return this.http.get<oreder[]>(url).subscribe({
       next: (response) => {
         this.getOrdersSubject.next(response);
-        
+
       }
     });;
 

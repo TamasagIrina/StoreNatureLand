@@ -20,7 +20,15 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       }
-      <span style="color: white;">Nature Land Store</span>
+
+      <div class="user-bar">
+        <img class="profile-pic" src="/assets/images/account.jpg" alt="Profile" />
+        <span class="email">{{name}}</span>
+        <button (click)="logoutButton()" mat-icon-button>
+          <mat-icon class="logout-icon">logout</mat-icon>
+        </button>
+        
+      </div>
 
       <button (click)="cartButton()" mat-icon-button [matBadge]="database.cartAmount$| async" matBadgePosition="before"
         matBadgeColor="accent" class="cartButton"><mat-icon aria-label="Shopping cart"

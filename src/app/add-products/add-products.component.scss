@@ -1,22 +1,44 @@
-h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: #490015; 
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.all{
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+              url('/assets/images/background.jpg') center/cover no-repeat;
 }
 
+.messages-header {
+  width: 100%;
+  padding: 5rem 1rem 3rem 1rem;
+  text-align: center;
+
+  color: #fff;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 3rem 1rem 2rem 1rem;
+
+    h1 {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+
+
 .form-container {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 400px;
     margin: auto;
     padding: 2rem;
-    background-color:#9e002d;
+    background-color:#9e002dd1;
     border-radius: 1rem;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     color: white;
@@ -24,7 +46,7 @@ h1 {
   }
   
   .form-container label {
-    margin-top: 1rem;
+    margin-top: 3rem;
     font-weight: bold;
     font-size: 1rem;
   }

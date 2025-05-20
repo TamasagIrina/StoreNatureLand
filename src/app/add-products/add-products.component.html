@@ -1,35 +1,40 @@
-<h1>ADD PRODUCTS</h1>
+<div class="all">
+  <div class="messages-header">
+    <h1>Add products</h1>
+  </div>
 
-<form [formGroup]="addRecipeForm" class="form-container">
+  <form [formGroup]="addRecipeForm" class="form-container">
 
-  <mat-form-field appearance="fill">
-    <mat-label>Product Name</mat-label>
-    <input matInput type="text" formControlName="productName" placeholder="Product Name" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Product Name</mat-label>
+      <input matInput type="text" formControlName="productName" placeholder="Product Name" required>
+    </mat-form-field>
 
 
-  <mat-form-field appearance="fill">
-    <mat-label>Brand</mat-label>
-    <input matInput type="text" formControlName="productBrand" placeholder="Brand" required>
-  </mat-form-field> 
+    <mat-form-field appearance="fill">
+      <mat-label>Brand</mat-label>
+      <input matInput type="text" formControlName="productBrand" placeholder="Brand" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Description</mat-label>
-    <textarea matInput formControlName="productDescription" placeholder="Description" required></textarea>
-  </mat-form-field> 
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="productDescription" placeholder="Description" required></textarea>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Price</mat-label>
-    <input matInput type="number" step="0.01" formControlName="productPrice" placeholder="Price" required>
-  </mat-form-field> 
+    <mat-form-field appearance="fill">
+      <mat-label>Price</mat-label>
+      <input matInput type="number" step="0.01" formControlName="productPrice" placeholder="Price" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Image URL</mat-label>
-    <input matInput type="url" formControlName="productImg" placeholder="Image URL" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Image URL</mat-label>
+      <input matInput type="url" formControlName="productImg" placeholder="Image URL" required>
+    </mat-form-field>
 
-  <button (click)="addBotton()" mat-raised-button color="primary" type="submit" [disabled]="addRecipeForm.invalid">
-    Add Product
-  </button>
-</form>
-    
+    <button (click)="addBotton()" mat-raised-button color="primary" type="submit" [disabled]="addRecipeForm.invalid">
+      Add Product
+    </button>
+  </form>
+
+
+</div>

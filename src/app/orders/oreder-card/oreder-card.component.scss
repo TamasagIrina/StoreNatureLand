@@ -24,7 +24,16 @@
       padding: 4px 12px;
       border-radius: 20px;
       background-color: #ffdbdb;
-      color: #660000;
+      
+      &.in-process {
+        background-color: #ffcdcd;
+        color: #6c0e0e;
+      }
+
+      &.deported {
+        background-color: #d4edda;
+        color: #155724;
+      }
     }
 
     .label {

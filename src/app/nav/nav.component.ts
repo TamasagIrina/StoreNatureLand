@@ -36,6 +36,8 @@ import { FormsModule } from '@angular/forms';
 export class NavComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
+  name: string = localStorage.getItem('email') || ""
+
   private roleSubject = new BehaviorSubject<string>('');
   role$ = this.roleSubject.asObservable();
 
@@ -83,7 +85,9 @@ export class NavComponent {
     this.router.navigateByUrl("/mainPage/cart");
   }
 
-
+  logoutButton() {
+    this.router.navigateByUrl("/home");
+  }
 
 
   isAdmin(): boolean {
