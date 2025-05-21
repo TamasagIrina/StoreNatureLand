@@ -1,0 +1,49 @@
+h2 {
+  margin-bottom: 1rem;
+}
+
+
+
+.recommendations {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+
+}
+.popup-header {
+  position: sticky;
+  top: 0;
+  background: rgba(238, 217, 217, 0.889);
+  z-index: 10;
+  border-radius: 20px;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid auto;
+}
+
+.popup-footer {
+  position: sticky;
+  bottom: 0;
+  background: auto;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid auto;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+button{
+  margin-top: 20px;
+    padding: 4px 9px;
+    font-size: 1rem;
+    background-color: #8B2E3C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: rgb(137, 20, 20);
+    }
+}

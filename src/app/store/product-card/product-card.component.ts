@@ -9,6 +9,8 @@ import { cart } from '../../interfaces/cart.interface';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { CartPopupComponent } from '../../cart-popup/cart-popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-card',
@@ -22,9 +24,12 @@ export class ProductCardComponent {
   @Input() product!: product;
   @Output() seeMoreProduct = new EventEmitter<product>();
 
+  name = localStorage.getItem("status");
+ 
 
+  constructor(readonly router: Router, protected database: DataService, private dialog: MatDialog) {
 
-  constructor(readonly router: Router, private database: DataService) { }
+  }
 
   async onStoc() {
     this.database.updateStocToIn(this.product.id);
@@ -40,9 +45,9 @@ export class ProductCardComponent {
 
   async onDelete() {
     this.database.deleteProduct(this.product.id).subscribe({
-    next: () => this.database.getProducts(),
-    error: (err) => console.error('Delete failed:', err)
-  });
+      next: () => this.database.getProducts(),
+      error: (err) => console.error('Delete failed:', err)
+    });
   }
 
   seeMoreButton() {
@@ -61,13 +66,17 @@ export class ProductCardComponent {
     this.database.addProdactToCart(this.cartProduct as Omit<cart, 'id'>)
       .subscribe({
         next: (res) => {
-          if (res === "added") {
-            alert('Product added in cart');
+          
+            this.dialog.open(CartPopupComponent, {
+              width: '550px',
+              height: '480px',
+              data: {
+                resp: res
+              }
+            });
             this.database.getCartProduct(id);
             this.database.updateCartAmount();
-          } else {
-            alert('Account allredy have this in cart');
-          }
+         
 
         },
         error: (err) => {

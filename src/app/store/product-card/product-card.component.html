@@ -5,13 +5,13 @@
       {{ product.stoc.replaceAll("_", " ") }}
     </div>
 
-      <div class="card-menu">
+      <div class="card-menu"  *ngIf="(database.role$ | async) === 'ADMIN' " >
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="onStoc()">Up date to ON STOC</button>
-      <button mat-menu-item (click)="outOfStoc()">Up date to OUT of STOC</button>
+      <button *ngIf="product.stoc === 'OUT_OF_STOC' " mat-menu-item (click)="onStoc()">Up date to ON STOC</button>
+      <button *ngIf="product.stoc === 'IN_STOC' " mat-menu-item (click)="outOfStoc()">Up date to OUT of STOC</button>
       <button mat-menu-item (click)="onDelete()">Delete</button>
     </mat-menu>
   </div>

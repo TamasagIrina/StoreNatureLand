@@ -38,8 +38,7 @@ export class NavComponent {
 
   name: string = localStorage.getItem('email') || ""
 
-  private roleSubject = new BehaviorSubject<string>('');
-  role$ = this.roleSubject.asObservable();
+
 
   constructor(private router: Router, protected database: DataService) {
 
@@ -47,35 +46,11 @@ export class NavComponent {
 
 
   ngOnInit() {
-
-    //this.cartAmount$ = this.database.cartAmount$;
-
-    this.database.getRole(localStorage.getItem('email') || '').subscribe({
-      next: (response) => {
-
-        this.roleSubject.next(response)
-
-        localStorage.setItem("status", response);
-
-      }
-
-    });
-
-
-    // if (this.database.addedToOrdes) {
-    //   let id = localStorage.getItem('id') as unknown as number;
-    //   this.database.deleteALLCartItems(id);
-
-    // }
-
+    this.database.getRole(localStorage.getItem('email') || '');
     this.database.getCartProduct(localStorage.getItem('id') as unknown as number);
     this.database.updateCartAmount();
 
   }
-
-
-
-
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -89,12 +64,13 @@ export class NavComponent {
 
   logoutButton() {
     this.router.navigateByUrl("/home");
+    localStorage.removeItem('status');
+    localStorage.removeItem('email');
   }
 
 
   isAdmin(): boolean {
-
-    return this.roleSubject.getValue() === 'ADMIN';
+    return this.database.roleSubject.getValue() === 'ADMIN';
   }
 
 

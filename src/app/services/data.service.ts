@@ -46,7 +46,8 @@ export class DataService {
   public getMessageSubject = new BehaviorSubject<message[]>([]);
   getMessage$ = this.getMessageSubject.asObservable();
 
-
+  public roleSubject = new BehaviorSubject<string>('');
+  role$ = this.roleSubject.asObservable();
 
   public sentProductsSubject = new BehaviorSubject<product[]>([]);
   sentProducts$ = this.sentProductsSubject.asObservable();
@@ -132,14 +133,16 @@ export class DataService {
     });
   }
   getRole(email: string) {
-    return this.http.get(`${this.API_URL}getRole/${email}`, { responseType: 'text' }).pipe(
-      catchError((error) => {
-        console.log(error);
-        throw new Error(error);
-      }
-      )
-    );
+    return this.http.get(`${this.API_URL}getRole/${email}`, { responseType: 'text' }).subscribe({
+      next: (response) => {
 
+        this.roleSubject.next(response);
+
+      
+
+      }
+
+    });
   }
 
   addUser(user: Omit<User, 'id,role'>) {

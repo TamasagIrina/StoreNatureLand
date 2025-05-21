@@ -17,15 +17,12 @@
 
     <h1>Hello, {{email}}</h1>
     <p class="subtitle">Here's where you manage your account</p>
-    
+
   </div>
 </div>
 
-<div class="account-container">
+<!-- <div class="account-container">
   <h2>Your Purchase</h2>
-
-
-
 
 
   @for (order of dataService.getOrderByIdSubject | async; track $index){
@@ -35,35 +32,54 @@
   }
 
 
+</div> -->
 
-  <!-- <form class="account-form">
-    <h3>Change your Name</h3>
-    <div class="form-group">
-      <label>First Name</label>
-      <input type="text" placeholder="First">
-    </div>
-    <div class="form-group">
-      <label>Last Name</label>
-      <input type="text" placeholder="Last">
-    </div>
+<div class="account-container">
 
-    <div class="form-group">
-      <label>Email Address</label>
-      <input type="email" placeholder="email@yourdomain.com">
-    </div>
 
-    <h3>Change your Password</h3>
-    <div class="form-group">
-      <label>New Password</label>
-      <input type="password">
-    </div>
-    <div class="form-group">
-      <label>Re-enter Password</label>
-      <input type="password">
-    </div>
 
-    <p class="note">Please note after changing your password, you must log back in.</p>
+  <mat-tab-group>
 
-    <button type="submit" class="save-btn">Save Changes</button>
-  </form> -->
+
+    <mat-tab label="Your Purchase">
+      @for (order of dataService.getOrderByIdSubject | async; track $index){
+      <app-table-order [order]="order"></app-table-order>
+      }@empty {
+      <div>No items to display</div>
+      }
+    </mat-tab>
+
+
+    <mat-tab label="Account settings">
+      <br>
+      <form>
+        <mat-form-field appearance="outline">
+          <mat-label>First name</mat-label>
+          <input matInput [(ngModel)]="user.firstName" name="firstName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last name</mat-label>
+          <input matInput [(ngModel)]="user.lastName" name="lastName" required>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput [(ngModel)]="user.password" name="password" type="password" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput [(ngModel)]="user.email" name="email" type="email" required>
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit">Save</button>
+          <button mat-button type="button">Cancel</button>
+        </div>
+      </form>
+    </mat-tab>
+
+
+  </mat-tab-group>
 </div>
