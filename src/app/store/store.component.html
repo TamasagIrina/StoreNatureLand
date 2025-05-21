@@ -20,7 +20,7 @@
   <div class="containder">
     <div class="product-grid">
 
-      @for (prod of sentProductsSubject | async; track $index){
+      @for (prod of databese.sentProductsSubject| async; track $index){
       <app-product-card [product]="prod"></app-product-card>
       }@empty {
       <div>No items to display</div>

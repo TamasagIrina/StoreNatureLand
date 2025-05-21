@@ -6,10 +6,13 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { DataService } from '../../services/data.service';
 import { cart } from '../../interfaces/cart.interface';
+import { CommonModule } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-card',
-  imports: [MatCardModule, MatButtonModule],
+  imports: [MatCardModule, MatButtonModule, CommonModule, MatIconModule, MatMenuModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss'
 })
@@ -19,7 +22,29 @@ export class ProductCardComponent {
   @Input() product!: product;
   @Output() seeMoreProduct = new EventEmitter<product>();
 
+
+
   constructor(readonly router: Router, private database: DataService) { }
+
+  async onStoc() {
+    this.database.updateStocToIn(this.product.id);
+    await new Promise(resolve => setTimeout(resolve, 300));
+    this.database.getProducts();
+  }
+
+  async outOfStoc() {
+    this.database.updateStocToOut(this.product.id);
+    await new Promise(resolve => setTimeout(resolve, 300));
+    this.database.getProducts();
+  }
+
+  async onDelete() {
+    this.database.deleteProduct(this.product.id).subscribe({
+    next: () => this.database.getProducts(),
+    error: (err) => console.error('Delete failed:', err)
+  });
+  }
+
   seeMoreButton() {
     this.router.navigate(['/mainPage/details'], {
       state: { product: this.product }
@@ -32,7 +57,7 @@ export class ProductCardComponent {
     this.cartProduct.amount = 1;
     this.cartProduct.personid = id;
     this.cartProduct.product = this.product
-    
+
     this.database.addProdactToCart(this.cartProduct as Omit<cart, 'id'>)
       .subscribe({
         next: (res) => {
@@ -51,10 +76,10 @@ export class ProductCardComponent {
         }
       });
 
-    
+
 
   }
 
-  
+
 
 }

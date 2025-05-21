@@ -1,26 +1,60 @@
-
-img{
-    width: 220px;
-    height:180px;
-    border-radius: 10%;
+.stock-status {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  // font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  z-index: 2;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
+
+.in-stock {
+  background-color: #28a745; // green
+}
+
+.out-stock {
+  background-color: #dc3545; // red
+}
+
+.card-menu {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 5;
+
+  button {
+    background: white;
+    border-radius: 50%;
+    padding: 4px;
+  }
+}
+
+img {
+  width: 220px;
+  height: 180px;
+  border-radius: 10%;
+}
+
 .example-card {
-   width: 360px;
-   height: 340px;
-   display: flex;
-   align-items: center;
-   border-radius: 10%;
-    &:hover {
-  transform: scale(1.02);
+  width: 360px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  border-radius: 10%;
+
+  &:hover {
+    transform: scale(1.02);
   }
 
 }
+
 .title {
-    font-weight: bold;
-    margin-top: 0.3rem;
-    font-size: 1.1rem;
-  }
-  
-  
-  
-  
+
+  font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}

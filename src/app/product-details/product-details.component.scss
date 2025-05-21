@@ -5,10 +5,34 @@
   padding: 2rem;
   gap: 3rem;
 
+
   .image-section {
+    position: relative;
     flex: 1 1 300px;
     display: flex;
     justify-content: center;
+
+    .stock-status {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      // font-weight: bold;
+      text-transform: uppercase;
+      color: white;
+      z-index: 2;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .in-stock {
+      background-color: #28a745; // green
+    }
+
+    .out-stock {
+      background-color: #dc3545; // red
+    }
 
     img {
       max-width: 100%;

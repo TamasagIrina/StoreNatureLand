@@ -31,25 +31,18 @@ export class StoreComponent {
 
  copyProducts: product[]=[]
 
- protected sentProductsSubject = new BehaviorSubject<product[]>([]);
- sentProducts$ = this.sentProductsSubject.asObservable();
+
   searchValue: any;
 
 
-  constructor(readonly router: Router, private databese: DataService){
+  constructor(readonly router: Router, protected databese: DataService){
 
   }
   ngOnInit(){
-    this.databese.getProducts().subscribe({
-      next  : (response)=>{
-
-        this.sentProductsSubject.next(response);
-  
-      }
-    });
+    this.databese.getProducts();
 
    
-   this.sentProductsSubject.subscribe(products => {
+   this.databese.sentProductsSubject.subscribe(products => {
      this.copyProducts= products;
 
     });

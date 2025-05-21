@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 
 import { cart } from '../interfaces/cart.interface';
 import { DataService } from '../services/data.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })

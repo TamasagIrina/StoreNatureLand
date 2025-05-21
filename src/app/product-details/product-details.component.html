@@ -1,8 +1,11 @@
 <div class="product-details-container">
   <div class="image-section">
+     <div class="stock-status" [ngClass]="product.stoc === 'IN_STOC' ? 'in-stock' : 'out-stock'">
+      {{ product.stoc.replaceAll("_", " ") }}
+    </div>
     <img src="{{product.productImg}}" alt="Product Image" />
   </div>
-
+ 
   <div class="info-section">
     <h2 class="product-title">{{product.productName}}</h2>
     <p class="product-description">
@@ -12,7 +15,7 @@
 
     <div class="actions">
 
-      <button class="add-to-cart-btn" (click)="addButtonOnAcction()">Add to Cart</button>
+      <button *ngIf="product.stoc === 'IN_STOC'" class="add-to-cart-btn" (click)="addButtonOnAcction()">Add to Cart</button>
     </div>
   </div>
 </div>

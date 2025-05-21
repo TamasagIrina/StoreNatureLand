@@ -46,6 +46,11 @@ export class DataService {
   public getMessageSubject = new BehaviorSubject<message[]>([]);
   getMessage$ = this.getMessageSubject.asObservable();
 
+
+
+  public sentProductsSubject = new BehaviorSubject<product[]>([]);
+  sentProducts$ = this.sentProductsSubject.asObservable();
+
   readonly API_URL = 'http://localhost:8080/';
 
   constructor(private http: HttpClient, readonly router: Router) { }
@@ -182,13 +187,13 @@ export class DataService {
 
 
   getProducts() {
-    return this.http.get<product[]>(this.API_URL + "getProducts").pipe(
-      catchError((error) => {
-        console.log(error);
-        throw new Error(error);
+    return this.http.get<product[]>(this.API_URL + "getProducts").subscribe({
+      next: (response) => {
+
+        this.sentProductsSubject.next(response);
+
       }
-      )
-    );
+    });
   }
   getUserId(email: string) {
     return this.http.get(this.API_URL + `getId/${email}`).subscribe({
@@ -232,8 +237,36 @@ export class DataService {
 
   }
 
+  updateStocToIn(idProduct: number) {
+    return this.http.put(`${this.API_URL}inStoc/${idProduct}`, {}, {
+      responseType: 'text'
+    }).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (err) => {
+        alert(err)
+      }
+    });
 
-    updateStatusMessage(idMessage: number) {
+
+  }
+  updateStocToOut(idProduct: number) {
+    return this.http.put(`${this.API_URL}outOfStoc/${idProduct}`, {}, {
+      responseType: 'text'
+    }).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (err) => {
+        alert(err)
+      }
+    });
+
+
+  }
+
+  updateStatusMessage(idMessage: number) {
     return this.http.put(`${this.API_URL}answered/${idMessage}`, {}, {
       responseType: 'text'
     }).subscribe({
@@ -257,6 +290,11 @@ export class DataService {
 
   deleteCartItem(personId: number, productId: number): Observable<string> {
     const url = `${this.API_URL}delete/${personId}/${productId}`;
+    return this.http.delete(url, { responseType: 'text' });
+  }
+
+  deleteProduct(productId: number): Observable<string> {
+    const url = `${this.API_URL}deleteProduct/${productId}`;
     return this.http.delete(url, { responseType: 'text' });
   }
 
