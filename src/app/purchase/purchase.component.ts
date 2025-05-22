@@ -41,9 +41,9 @@ export class PurchaseComponent {
 
   paymentForm: FormGroup;
   showCardFields = false;
-  canPurchase = true;
+  canPurchase = false;
 
-   user:User = JSON.parse(localStorage.getItem('user') || "") as User;
+  user: User = JSON.parse(localStorage.getItem('user') || "") as User;
 
   constructor(private fb: FormBuilder, private router: Router, protected dataService: DataService) {
     this.paymentForm = this.fb.group({
@@ -52,6 +52,25 @@ export class PurchaseComponent {
       cardNumber: [''],
       expiry: [''],
       cvv: ['']
+    });
+
+    
+    this.paymentForm.valueChanges.subscribe(() => {
+      const method = this.paymentForm.get('method')?.value;
+
+      if (method === 'card') {
+        const valid =
+          this.paymentForm.get('cardName')?.valid &&
+          this.paymentForm.get('cardNumber')?.valid &&
+          this.paymentForm.get('expiry')?.valid &&
+          this.paymentForm.get('cvv')?.valid;
+
+        this.canPurchase = !!valid;
+      } else if (method === 'cash') {
+        this.canPurchase = true;
+      } else {
+        this.canPurchase = false;
+      }
     });
 
 
@@ -73,9 +92,8 @@ export class PurchaseComponent {
   onMethodChange() {
     const method = this.paymentForm.get('method')?.value;
     this.showCardFields = method === 'card';
-    this.canPurchase = method === 'cash';
 
-    if (method === 'Card') {
+    if (method === 'card') {
       this.paymentForm.get('cardName')?.setValidators([Validators.required]);
       this.paymentForm.get('cardNumber')?.setValidators([Validators.required, Validators.minLength(16)]);
       this.paymentForm.get('expiry')?.setValidators([Validators.required]);
@@ -87,20 +105,13 @@ export class PurchaseComponent {
       this.paymentForm.get('cvv')?.clearValidators();
     }
 
-     this.paymentForm.get('cardName')?.updateValueAndValidity();
-  this.paymentForm.get('cardNumber')?.updateValueAndValidity();
-  this.paymentForm.get('expiry')?.updateValueAndValidity();
-  this.paymentForm.get('cvv')?.updateValueAndValidity();
-
-  // 👇🔁 Ascultă validarea generală
-  this.paymentForm.statusChanges.subscribe(status => {
-    this.canPurchase = status === 'VALID';
-  });
-
-
-    
-
+    this.paymentForm.get('cardName')?.updateValueAndValidity();
+    this.paymentForm.get('cardNumber')?.updateValueAndValidity();
+    this.paymentForm.get('expiry')?.updateValueAndValidity();
+    this.paymentForm.get('cvv')?.updateValueAndValidity();
   }
+
+
 
   purchase() {
 
@@ -115,7 +126,7 @@ export class PurchaseComponent {
     this.order.address = secondFormGroup.addressCtrl?.toString() ?? '';
     this.order.phone_number = secondFormGroup.phoneCtrl?.toString() ?? '';
     this.order.payment_method = this.paymentForm.get('method')?.value;
-    this.order.status= OrderStatus.IN_PROCESS;
+    this.order.status = OrderStatus.IN_PROCESS;
 
 
     this.dataService.getCartProductsSubject.subscribe(products => {
@@ -123,7 +134,7 @@ export class PurchaseComponent {
       for (const prod of products) {
         this.order.cart_elements += prod.productName + "--" + prod.amount + ";  ";
       }
-      
+
 
     });
 
@@ -135,8 +146,8 @@ export class PurchaseComponent {
 
   placeOrder() {
     if (this.order.cart_elements != null) {
-       let idClient: number = this.user.id;
-       
+      let idClient: number = this.user.id;
+
       of(null).pipe(
         concatMap(() => this.dataService.addOrder(this.order)),
         concatMap(() => this.dataService.deleteALLCartItems(idClient)),
@@ -146,7 +157,7 @@ export class PurchaseComponent {
         next: () => console.log(' All steps completed'),
         error: (err) => console.error('Error:', err)
       });
-    }else{
+    } else {
       alert("Cart emty")
     }
 
