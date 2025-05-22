@@ -7,6 +7,7 @@ import { DataService } from '../services/data.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CartPopupComponent } from '../cart-popup/cart-popup.component';
+import { User } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-product-details',
@@ -18,15 +19,19 @@ export class ProductDetailsComponent {
   @Input() product!: product;
   @Input() cartProduct!: cart;
 
+  user: User = JSON.parse(localStorage.getItem('user') || "") as User;
+
   constructor(private router: Router, private database: DataService, private dialog: MatDialog) {
     const nav = this.router.getCurrentNavigation();
     this.product = nav?.extras?.state?.['product'];
   }
 
 
-
+  backButton() {
+    this.router.navigateByUrl("mainPage/store");
+  }
   addButtonOnAcction() {
-    let id: number = localStorage.getItem('id') as unknown as number;
+    let id: number = this.user.id;
 
     this.cartProduct = {} as cart;
     this.cartProduct.amount = 1;
@@ -39,7 +44,8 @@ export class ProductDetailsComponent {
 
           this.dialog.open(CartPopupComponent, {
             width: '550px',
-            height: '480px',
+            height: 'auto',
+            maxHeight: '580px',
             data: {
               resp: res
             }

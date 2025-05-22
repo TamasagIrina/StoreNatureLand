@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { CartItemComponent } from "./cart-item/cart-item.component";
 import { NavComponent } from '../nav/nav.component';
+import { User } from '../interfaces/user.interface';
 
 
 @Component({
@@ -26,6 +27,7 @@ import { NavComponent } from '../nav/nav.component';
 
 export class CartComponent {
   catrPorduct: cartProduct[] = []
+   user:User = JSON.parse(localStorage.getItem('user') || "") as User;
  
   
   constructor(readonly router: Router, protected dataService: DataService) {
@@ -33,7 +35,7 @@ export class CartComponent {
   }
   ngOnInit() {
     
-    this.dataService.getCartProduct(localStorage.getItem('id') as unknown as number);
+    this.dataService.getCartProduct(this.user.id);
     this.dataService.updatePrice();
     
   }
@@ -41,6 +43,12 @@ export class CartComponent {
  
   purchaseButton() {
      this.router.navigateByUrl('/mainPage/purchase');
+    
+
+  }
+
+    backButton() {
+     this.router.navigateByUrl('/mainPage/store');
     
 
   }

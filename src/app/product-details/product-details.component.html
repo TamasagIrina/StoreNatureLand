@@ -14,7 +14,7 @@
     <div class="price">{{product.productPrice}} RON</div>
 
     <div class="actions">
-
+      <button (click)="backButton()" class="back-btn" >Back to store</button>
       <button *ngIf="product.stoc === 'IN_STOC'" class="add-to-cart-btn" (click)="addButtonOnAcction()">Add to Cart</button>
     </div>
   </div>

@@ -26,29 +26,13 @@
 
 
 .page-content {
-  height: 96vh;
-  
-  overflow-y: auto;
+
   .inProcess, .deported{
       display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     width: 100%;
     justify-items: center;
   } 
-}
-
-::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-
-body {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-}
-
-body::-webkit-scrollbar {
-  display: none;
 }
 

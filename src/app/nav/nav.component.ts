@@ -13,6 +13,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { FormsModule } from '@angular/forms';
+import { User } from '../interfaces/user.interface';
 
 
 @Component({
@@ -36,9 +37,7 @@ import { FormsModule } from '@angular/forms';
 export class NavComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
-  name: string = localStorage.getItem('email') || ""
-
-
+  insertedUser!: User;
 
   constructor(private router: Router, protected database: DataService) {
 
@@ -46,9 +45,17 @@ export class NavComponent {
 
 
   ngOnInit() {
-    this.database.getRole(localStorage.getItem('email') || '');
-    this.database.getCartProduct(localStorage.getItem('id') as unknown as number);
-    this.database.updateCartAmount();
+
+    try {
+      const user: User = JSON.parse(localStorage.getItem('user') || "") as User;
+      this.insertedUser = user;
+      this.database.getRole(user.email);
+      this.database.getCartProduct(user.id);
+      this.database.updateCartAmount();
+    } catch (error) {
+      console.log("NOT RENDERED ALL YET");
+    } 
+
 
   }
 
@@ -64,8 +71,8 @@ export class NavComponent {
 
   logoutButton() {
     this.router.navigateByUrl("/home");
-    localStorage.removeItem('status');
-    localStorage.removeItem('email');
+    localStorage.removeItem('user');
+
   }
 
 

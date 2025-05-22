@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { User } from '../../interfaces/user.interface';
 
 
 @Component({
@@ -18,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './cart-item.component.scss'
 })
 export class CartItemComponent {
+
+   user:User = JSON.parse(localStorage.getItem('user') || "") as User;
   constructor(private database: DataService) {
 
   }
@@ -40,7 +43,7 @@ export class CartItemComponent {
 
   deleteButton() {
 
-    let personId: number = localStorage.getItem('id') as unknown as number;
+    let personId: number = this.user.id;
     this.database.getProductId(this.cartProduct.productName).subscribe({
       next: (id: number) => {
         if (id !== 0) {
@@ -49,7 +52,6 @@ export class CartItemComponent {
           this.database.deleteCartItem(personId, id).subscribe({
             next: (response) => {
               if (response === 'Deleted') {
-                alert(response);
 
                 this.database.getCartProduct(personId);
                 this.database.updateCartAmount();

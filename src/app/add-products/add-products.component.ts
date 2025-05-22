@@ -28,7 +28,7 @@ export class AddProductsComponent {
   })
 
   addBotton(){
-    this.database.addProdact(this.addRecipeForm.value as Omit<product, 'id'>)
+    this.database.addProdact(this.addRecipeForm.value as Omit<product, 'id,stoc'>)
           .subscribe({
             next: (res) => {
               if (res === "Product added") {

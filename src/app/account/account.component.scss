@@ -13,7 +13,7 @@
   justify-content: center;
   color: white;
   text-shadow: 1px 1px 3px #333;
-  overflow: hidden;
+  overflow: auto;
   
     mat-icon {
         font-size: 30px;
@@ -80,72 +80,8 @@
 }
 
 
-// .account-container {
-//   max-width: 800px;
-//   margin: 40px auto;
-//   padding: 30px;
-//   background:auto;
-//   border-radius: 10px;
-//   font-family: Arial, sans-serif;
-//   color: #333;
-
-//   h2 {
-//     margin-bottom: 20px;
-//   }
-
- 
-//   .account-form {
-//     display: flex;
-//     flex-direction: column;
-
-//     h3 {
-//       margin-top: 30px;
-//       margin-bottom: 10px;
-//       font-size: 1.2rem;
-//       color: #222;
-//     }
-
-//     .form-group {
-//       display: flex;
-//       flex-direction: column;
-//       margin-bottom: 15px;
-
-//       label {
-//         margin-bottom: 5px;
-//       }
-
-//       input, select {
-//         padding: 8px 10px;
-//         border: 1px solid #ccc;
-//         border-radius: 4px;
-
-//       }
-//     }
-
-//     .note {
-//       font-size: 0.9rem;
-//       color: #555;
-//       margin: 20px 0;
-//     }
-
-//     .save-btn {
-//       width: 150px;
-//       padding: 10px;
-//       background: #9e002d;
-//       color: white;
-//       border: none;
-//       border-radius: 5px;
-//       cursor: pointer;
-//       align-self: flex-start;
-
-//       &:hover {
-//         background: #5d001a;
-//       }
-//     }
-//   }
-// }
-
 .account-container {
+  
   max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
@@ -158,11 +94,11 @@
   margin-bottom: 1rem;
 }
 .account-form {
-  max-width: 900px;
+  width: 1000px;
   margin: 0 auto; /* CENTRARE orizontală */
-  padding: 3rem 6rem;
+  padding: 4rem 6rem;
   display: flex;
-    padding-top: 4rem; 
+  padding-top: 10rem; 
   flex-direction: column;
   gap: 6rem;
   background-color: #fff;
@@ -171,24 +107,32 @@
 }
 
 mat-form-field {
-  width: 90%;
+  width: 80%;  
+}
+
+
+
+mat-icon{
+  padding-right: 10px;
 }
 
 .button-row {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 4rem;
   margin-top: 1rem;
 }
 
-button[type="submit"] {
-  background-color: #d1005d; // roz intens ca în imagine
-  color: white;
+label{
+   display: flex;
+  justify-content: center;
+  color: gray;
+}
+
+button{
+  background-color: #8B2E3C; // roz intens ca în imagine
+ 
   border-radius: 25px;
   padding: 0.5rem 2rem;
 }
 
-button[type="button"] {
-  color: #d1005d;
-  font-weight: 500;
-}

@@ -90,6 +90,20 @@
           background-color: #88002b;
         }
       }
+
+       .back-btn {
+        background-color: #f6dddd;
+        color: #a50034;
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+          background-color: #c093a1;
+        }
+      }
     }
   }
 }

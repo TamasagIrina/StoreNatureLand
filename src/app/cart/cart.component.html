@@ -36,5 +36,10 @@
     <span class="cart-total-price">{{dataService.totalSubject.value.toFixed(2)}} </span>
   </div>
   <br>
-  <button class="purchase-btn" (click)="purchaseButton()" type="button">PURCHASE</button>
+  <div class="purchase-btn">
+  <button (click)="backButton()" >Back in store</button>
+  <button  [disabled]="dataService.totalSubject.value === 0" (click)="purchaseButton()" type="button">PURCHASE</button>
+  </div>
+
+
 </div>

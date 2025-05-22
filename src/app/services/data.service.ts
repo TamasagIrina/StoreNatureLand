@@ -118,9 +118,13 @@ export class DataService {
     return this.http.get(`${this.API_URL}verify/${email}/${password}`, { responseType: 'text' }).subscribe({
       next: (response) => {
         if (response == 'logged in') {
-          this.router.navigateByUrl('mainPage/store');
-          localStorage.setItem('email', email);
-          this.getUserId(email);
+
+          this.getUser(email);
+
+          setTimeout(() => this.router.navigateByUrl('mainPage/store'), 100);
+
+
+
 
         } else {
           alert(response)
@@ -138,7 +142,7 @@ export class DataService {
 
         this.roleSubject.next(response);
 
-      
+
 
       }
 
@@ -155,7 +159,7 @@ export class DataService {
     );;
   }
 
-  addProdact(product: Omit<product, 'id'>) {
+  addProdact(product: Omit<product, 'id,stoc'>) {
     return this.http.post(`${this.API_URL}addProduct`, product, {
       responseType: 'text'
     }).pipe(
@@ -198,11 +202,13 @@ export class DataService {
       }
     });
   }
-  getUserId(email: string) {
-    return this.http.get(this.API_URL + `getId/${email}`).subscribe({
+
+
+  getUser(email: string) {
+    return this.http.get<User>(this.API_URL + `getUser/${email}`).subscribe({
       next: (response) => {
-        localStorage.setItem('id', response as string);
-        this.getCartProduct(response as number);
+        localStorage.setItem('user', JSON.stringify(response));
+        this.getCartProduct(response.id);
         this.updateCartAmount();
       },
       error: (err) => {
@@ -210,7 +216,6 @@ export class DataService {
       }
     });
   }
-
 
 
   updateAmount(idProd: number, amount: number) {
@@ -254,6 +259,24 @@ export class DataService {
 
 
   }
+
+  updateUser(idUser: number, user: User) {
+    return this.http.put(`${this.API_URL}${idUser}`, user, {
+      responseType: 'text'
+    }).subscribe({
+      next: (response) => {
+        alert(response);
+        this.getUser(user.email);
+
+      },
+      error: (err) => {
+        alert(err)
+      }
+    });
+
+
+  }
+
   updateStocToOut(idProduct: number) {
     return this.http.put(`${this.API_URL}outOfStoc/${idProduct}`, {}, {
       responseType: 'text'

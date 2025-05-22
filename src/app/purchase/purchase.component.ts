@@ -15,6 +15,7 @@ import { oreder } from '../interfaces/order.interface';
 import { of } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 import { OrderStatus } from '../interfaces/orderStatus.interfac';
+import { User } from '../interfaces/user.interface';
 @Component({
   selector: 'app-purchase',
   imports: [
@@ -40,7 +41,9 @@ export class PurchaseComponent {
 
   paymentForm: FormGroup;
   showCardFields = false;
-  canPurchase = false;
+  canPurchase = true;
+
+   user:User = JSON.parse(localStorage.getItem('user') || "") as User;
 
   constructor(private fb: FormBuilder, private router: Router, protected dataService: DataService) {
     this.paymentForm = this.fb.group({
@@ -84,12 +87,24 @@ export class PurchaseComponent {
       this.paymentForm.get('cvv')?.clearValidators();
     }
 
-    this.paymentForm.updateValueAndValidity();
+     this.paymentForm.get('cardName')?.updateValueAndValidity();
+  this.paymentForm.get('cardNumber')?.updateValueAndValidity();
+  this.paymentForm.get('expiry')?.updateValueAndValidity();
+  this.paymentForm.get('cvv')?.updateValueAndValidity();
+
+  // 👇🔁 Ascultă validarea generală
+  this.paymentForm.statusChanges.subscribe(status => {
+    this.canPurchase = status === 'VALID';
+  });
+
+
+    
+
   }
 
   purchase() {
 
-    let idClient: number = localStorage.getItem('id') as unknown as number;
+    let idClient: number = this.user.id;
     this.order = {} as oreder;
 
     const formValues = this.firstFormGroup.getRawValue();
@@ -120,8 +135,8 @@ export class PurchaseComponent {
 
   placeOrder() {
     if (this.order.cart_elements != null) {
-      let idClient: number = localStorage.getItem('id') as unknown as number;
-
+       let idClient: number = this.user.id;
+       
       of(null).pipe(
         concatMap(() => this.dataService.addOrder(this.order)),
         concatMap(() => this.dataService.deleteALLCartItems(idClient)),

@@ -6,7 +6,7 @@
       <a mat-list-item href="/mainPage/store"><mat-icon matPrefix>store</mat-icon> Store</a>
       <a mat-list-item href="/mainPage/account"><mat-icon matPrefix>persone</mat-icon> Account</a>
       <a mat-list-item href="/mainPage/aboutUs"><mat-icon matPrefix>star</mat-icon> AboutUs</a>
-      <a mat-list-item href="/mainPage/contact"><mat-icon matPrefix>phone</mat-icon> Contact</a>
+      <a *ngIf="!isAdmin()" mat-list-item href="/mainPage/contact"><mat-icon matPrefix>phone</mat-icon> Contact</a>
       <a *ngIf="isAdmin()" mat-list-item href="/mainPage/add"><mat-icon matPrefix>add</mat-icon> Add Products</a>
       <a *ngIf="isAdmin()" mat-list-item href="/mainPage/getMessages"><mat-icon matPrefix>messages</mat-icon>
         Messages</a>
@@ -14,6 +14,8 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
+
+    
     <mat-toolbar color="primary">
       @if (isHandset$ | async) {
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
@@ -23,7 +25,7 @@
 
       <div class="user-bar">
         <img class="profile-pic" src="/assets/images/account.jpg" alt="Profile" />
-        <span class="email">{{name}}</span>
+        <span class="email">{{insertedUser.email}}</span>
         <button (click)="logoutButton()" mat-icon-button>
           <mat-icon class="logout-icon">logout</mat-icon>
         </button>

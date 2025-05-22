@@ -14,18 +14,17 @@ h2 {
 .popup-header {
   position: sticky;
   top: 0;
-  background: rgba(238, 217, 217, 0.889);
+  background: #8b2e3cb2;
   z-index: 10;
-  border-radius: 20px;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid auto;
 }
 
 .popup-footer {
   position: sticky;
-  bottom: 0;
+  bottom: 0px;
   background: auto;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   border-top: 1px solid auto;
   display: flex;
   justify-content: space-between;
@@ -33,8 +32,8 @@ h2 {
 }
 
 button{
-  margin-top: 20px;
-    padding: 4px 9px;
+    margin-top: 20px;
+    padding: 6px 13px;
     font-size: 1rem;
     background-color: #8B2E3C;
     color: white;
@@ -44,6 +43,30 @@ button{
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: rgb(137, 20, 20);
+      background-color: rgba(238, 217, 217, 0.889);
     }
+}
+.cart-popup {
+  // Asigură-te că acest element are overflow
+  max-height: 550vh;
+  overflow-y: auto;
+
+  /* Scrollbar Slim + Transparent */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.4);;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 1px;
+    border: 1px solid transparent;
+  }
+
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
 }

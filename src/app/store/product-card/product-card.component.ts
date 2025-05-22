@@ -11,6 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { CartPopupComponent } from '../../cart-popup/cart-popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { User } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-product-card',
@@ -23,6 +24,8 @@ export class ProductCardComponent {
   @Input() cartProduct!: cart;
   @Input() product!: product;
   @Output() seeMoreProduct = new EventEmitter<product>();
+
+  user:User = JSON.parse(localStorage.getItem('user') || "") as User;
 
   name = localStorage.getItem("status");
  
@@ -56,7 +59,7 @@ export class ProductCardComponent {
     });
   }
   addButtonOnAcction() {
-    let id: number = localStorage.getItem('id') as unknown as number;
+    let id: number = this.user.id;
 
     this.cartProduct = {} as cart;
     this.cartProduct.amount = 1;
@@ -69,7 +72,8 @@ export class ProductCardComponent {
           
             this.dialog.open(CartPopupComponent, {
               width: '550px',
-              height: '480px',
+              height: 'auto',
+              maxHeight: '580px',
               data: {
                 resp: res
               }

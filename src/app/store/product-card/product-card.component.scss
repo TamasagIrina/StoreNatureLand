@@ -3,6 +3,7 @@
   top: 8px;
   right: 8px;
   padding: 4px 10px;
+
   border-radius: 20px;
   font-size: 0.75rem;
   // font-weight: bold;
@@ -45,6 +46,7 @@ img {
   display: flex;
   align-items: center;
   border-radius: 10%;
+  
 
   &:hover {
     transform: scale(1.02);
@@ -58,3 +60,4 @@ img {
   margin-top: 1rem;
   font-size: 1.1rem;
 }
+
