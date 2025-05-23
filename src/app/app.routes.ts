@@ -12,14 +12,16 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { AddProductsComponent } from './add-products/add-products.component';
 import { GetMessagesComponent } from './get-messages/get-messages.component';
 import { OrdersComponent } from './orders/orders.component';
+import { authGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
-    {path:"", redirectTo: 'home', pathMatch: 'full' },
+    {path:"***", redirectTo: 'home', pathMatch: 'full' },
     {path:'home', component: HomeComponent}, 
     {path: 'register', component: RegisterComponent},
     {
         path: 'mainPage',
         component: MainPageComponent,
+        canActivate: [authGuard] ,
         children: [
           { path: 'store', component: StoreComponent },
           { path: 'cart', component: CartComponent },
