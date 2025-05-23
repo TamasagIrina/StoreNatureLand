@@ -16,6 +16,7 @@ import { of } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 import { OrderStatus } from '../interfaces/orderStatus.interfac';
 import { User } from '../interfaces/user.interface';
+import { CartItemComponent } from "../cart/cart-item/cart-item.component";
 @Component({
   selector: 'app-purchase',
   imports: [
@@ -30,7 +31,8 @@ import { User } from '../interfaces/user.interface';
     MatSelectModule,
     MatOptionModule,
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    CartItemComponent
   ],
   templateUrl: './purchase.component.html',
   styleUrl: './purchase.component.scss'
@@ -45,6 +47,13 @@ export class PurchaseComponent {
 
   user: User = JSON.parse(localStorage.getItem('user') || "") as User;
 
+  today = new Date();
+  formatted = this.today.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
+
   constructor(private fb: FormBuilder, private router: Router, protected dataService: DataService) {
     this.paymentForm = this.fb.group({
       method: [''],
@@ -54,7 +63,7 @@ export class PurchaseComponent {
       cvv: ['']
     });
 
-    
+
     this.paymentForm.valueChanges.subscribe(() => {
       const method = this.paymentForm.get('method')?.value;
 
@@ -73,7 +82,7 @@ export class PurchaseComponent {
       }
     });
 
-
+    this.dataService.updatePrice();
 
   }
 
@@ -160,6 +169,6 @@ export class PurchaseComponent {
     } else {
       alert("Cart emty")
     }
-
+    alert("Thank you for your purchase!");
   }
 }

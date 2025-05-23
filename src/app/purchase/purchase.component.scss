@@ -1,7 +1,7 @@
 .hero {
   width: 92.5vw;
   height: 250px;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('./background.jpg') ;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('./background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -10,14 +10,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white ;
+  color: white;
   text-shadow: 1px 1px 3px #333;
   overflow: hidden;
-  
-    mat-icon {
-        font-size: 30px;
-        color: white;
-     }
+
+  mat-icon {
+    font-size: 30px;
+    color: white;
+  }
+
   .hero-content {
     text-align: center;
     background: rgba(0, 0, 0, 0.4);
@@ -53,37 +54,7 @@
   margin-top: 16px;
 }
 
-// mat-stepper {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
 
-//   form {
-//     width: 90%;
-//     max-width: 500px; // poți crește dacă vrei mai lat
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     gap: 1rem;
-//   }
-
-//   mat-form-field {
-//     width: 90%;
-    
-
-//     input {
-//       font-size: 1rem;
-//       padding: 1rem;
-//       height: 2x;
-//     }
-//   }
-
-//   button {
-//     margin-top: 1rem;
-//     padding: 0.7rem 2rem;
-//     font-size: 1rem;
-//   }
-// }
 
 mat-stepper {
   display: flex;
@@ -128,10 +99,20 @@ mat-stepper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
   max-width: 600px;
   margin: auto;
 }
+
+// .finalStep {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 1300px;
+// }
+
+
 
 mat-form-field {
   width: 100%;
@@ -149,14 +130,108 @@ mat-form-field {
   }
 }
 
-.payment-buttons {
-  display: flex;
-  gap: 3rem;
-  margin-top: 2rem;
 
-  button {
-    font-size: 1.2rem;
-    font-weight: bold;
+
+.thank-you-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 30px;
+  border-radius: 16px;
+  background: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-left: 60px;
+  max-width: 1000px;
+  width: 100%;
+  height: auto;
+
+  .thank-you-text {
+    flex: 1;
+    color: rgb(49, 47, 47);
+
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: rgb(31, 29, 29);
+    }
+
+    p {
+      font-size: 14px;
+      color: #312e2e;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin: 6px 0;
+        font-size: 14px;
+        color: #3f3d3d;
+
+        strong {
+          color: #4d3f3f;
+        }
+      }
+    }
+
+
+  }
+
+  .buttonsReset {
+    border-left: 2px;
+    height: 13px;
+    width: 10px;
+    color: black;
+    border-right: 3px;
+    border-radius: 30px;
+  }
+
+  .buttonsPurchase {
+    border-left: 2px;
+    height: 13px;
+    width: 10px;
+    color: rgb(151, 55, 55);
+   
+    border-radius: 30px;
+  }
+
+  .thank-you-right {
+    flex: 1;
+    background: auto;
+    padding: 20px;
+    border-radius: 12px;
+    word-wrap: break-word;
+    min-width: 350px;
+  
+
+
+    h4 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .order-info {
+      font-size: 14px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .product-list {
+
+      gap: 2px;
+      margin-bottom: 15px;
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 16px;
+      border-top: 1px solid #161414;
+      padding-top: 10px;
+    }
   }
 }
-

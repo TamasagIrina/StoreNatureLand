@@ -15,22 +15,29 @@
 
 
   </div>
-
+  <br>
+  <div class="category-toggle">
+    <div *ngFor="let category of categories">
+      <button mat-button [class.active]="selectedCategory === category" (click)="selectCategory(category)">
+        {{ category }}
+      </button>
+    </div>
+  </div>
   <div class="containder">
     <div class="product-grid">
 
       @for (prod of filtredProducts$ | async; track $index){
-        @if(prod.stoc==="IN_STOC"){
-        <app-product-card [product]="prod"></app-product-card>
-        }
+      @if(prod.stoc==="IN_STOC"){
+      <app-product-card [product]="prod"></app-product-card>
+      }
 
       }@empty {
       <div>No items to display</div>
       }
       @for (prod of filtredProducts$ | async; track $index){
-        @if(prod.stoc==="OUT_OF_STOC"){
-        <app-product-card [product]="prod"></app-product-card>
-        }
+      @if(prod.stoc==="OUT_OF_STOC"){
+      <app-product-card [product]="prod"></app-product-card>
+      }
 
       }
     </div>

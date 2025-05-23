@@ -45,11 +45,11 @@
 .cart-item {
   display: flex;
   align-items: left;
-
+  width: 100%;
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  background-color: auto;
+  background-color: white;
   transition: box-shadow 0.3s ease;
   margin-bottom: 2rem;
 
