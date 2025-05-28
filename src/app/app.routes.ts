@@ -15,7 +15,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { authGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
-    {path:"***", redirectTo: 'home', pathMatch: 'full' },
+  
     {path:'home', component: HomeComponent}, 
     {path: 'register', component: RegisterComponent},
     {
@@ -34,6 +34,7 @@ export const routes: Routes = [
           { path: 'getMessages', component: GetMessagesComponent },
           { path: 'orders', component: OrdersComponent }
         ]
-    }
+    },
+     {path:"**", redirectTo: 'home'},
     
 ];

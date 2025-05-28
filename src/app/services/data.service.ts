@@ -124,8 +124,6 @@ export class DataService {
           setTimeout(() => this.router.navigateByUrl('mainPage/store'), 100);
 
 
-
-
         } else {
           alert(response)
         }
